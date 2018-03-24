@@ -1,0 +1,71 @@
+1- vizualização de dados UI  - como é que queres fazer a UI inicial?
+
+
+- 
+- popular bd com jason..
+
+--> CINEMA 
+ 
+     /CINEMA/:id  GET/POST     -> Adiciona sala do cinema
+	 /CINEMAS      -> Retorna Lista de CINEMAS
+ ID_CINEMA;
+ NOME;
+ CIDADE_LOCALIZACAO;
+ SALAS [];
+ 
+ 
+--> SALAS 
+            /SALAS/id_sala  -> retorna informação da sala
+            /SALAS/set_sala  -> Adiciona sala do cinema
+
+ ID_SALA := ID_CINEMA || NR_SALA
+ CINEMA_ASSOCIADO;
+ NOME_SALA;
+ NR_FILAS;
+ NR_LUGAR_FILA;
+ 
+ 
+ --> SESSOES  
+              /SESSAO/set_sessao -> adiciona sessao a sala / cinema
+			  /SESSAO/id_sessao  -> retorna informação da sessao e ocupação
+			  /SESSAO/make_reserve ->(id_sessao + Lugar + ???nr_telefone??? )
+   
+   ID_SALA ;
+   ID_SESSAO ; [unico] -> ID_SALA|| DATA_EXIBICAO 
+   ID_FILME;
+   DATA_EXIBICAO [DD-MM-YYYY];
+   RESERVAS : array / estrutura em memoria com nr de posicoes  NR_FILAS * NR_LUGAR_FILA
+   /* 
+   F2  1, 2, 3, 4 , 5, 6, 7, 8, 9, 10 
+   F1  1, 2, 3, 4 , 5, 6, 7, 8, 9, 10
+   */
+ 
+ 
+ 
+--> FILME   [ /FILME/id_filme -> informação do Filme
+              /FILME/set_filme -> adiciona filme aos filmes disponiveis
+
+ ID_FILE; -> interno
+ TITULO;
+ ANO_PUBLICACAO;
+ DURACAO;  [em minutos]
+ [info obtida da api The Movie Database (TMDb)]
+ 
+ 
+
+ 
+ 
+PARTE 1 do trab
+-> componente de reservas  (utilizadores anónimos)
+  - consulta da informação acerca das sessões existentes e a reserva de bilhetes para essas sessões
+
+
+
+-> componente de gestão (utilizadores autenticados) [staff]
+  - Parte 1 sem autenticação pode ser ANONIMO
+  - acede a componente de Gestão - gestão (i.e. criação, consulta e alteração)   
+  
+
+ 
+ 
+ 
