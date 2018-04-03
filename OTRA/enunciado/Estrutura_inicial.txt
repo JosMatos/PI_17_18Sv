@@ -1,6 +1,6 @@
 1- vizualização de dados UI  - como é que queres fazer a UI inicial?
 
-- popular bd com jason....
+- popular bd com jason........
 
  
 --> CINEMA 
