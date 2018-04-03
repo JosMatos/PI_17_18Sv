@@ -1,5 +1,4 @@
 'use strict'
-
 /**
  * Module that contains the main set of cinema routes.
  * @module routes
@@ -10,11 +9,11 @@
  * @private
  */
 const express = require('express')
-const model = require('./datatypes/cinema')
+const model = require('../datatypes/cinema')
 
 /**
  * Creates an express application instance and initiates it with the set of supported routes.
- * @param {patients_repo.PatientsRepo} - The repository instance to be used
+ * @param {cinema_repo.CinemasRepo} - The repository instance to be used
  * @return {express.Application} - The newly created application
  */
 module.exports = exports = function(cinemasRepository) {
@@ -23,6 +22,10 @@ module.exports = exports = function(cinemasRepository) {
 
     app.use(express.urlencoded({ extended: true }))
      
+   /*
+    * Lista os Cinemas configurados no Repositorio
+    * 
+    */
     app.get('/cinemas', (req, res) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
         patientsRepository.getCinemas((err, data) => {
@@ -31,21 +34,30 @@ module.exports = exports = function(cinemasRepository) {
             res.send(JSON.stringify(data))
         })
     })
-
-    app.get('/cinema/status', (req, res) => {
+    
+   /*
+    * Metodo responsavel por apresentar o cinema com o ID passado em memoria
+    *
+    */
+   app.get('/cinema/:id', (req, res) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        patientsRepository.getCinemaStatus((err, data) => {
+        CinemaRepository.getCinema((err, data) => {
             // TODO: Error handling
             res.set("Content-Type", "application/json")
             res.send(JSON.stringify(data))
         })
     })
-
+    
+   /*
+    * Metodo responsavel por Registar novo cinema com o ID passado em memoria
+    *
+    */
     app.post('/cinema/:id/events', (req, res) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        cinemasRepository.registerEvent(new model.Event('Heartbeat', req.params.id), (err) => {
+        
+        /*cinemasRepository.registerCinema(new model.Event('Heartbeat', req.params.id), (err) => {
             // TODO: Error handling
-        })
+        })*/
         res.end()
     })
 

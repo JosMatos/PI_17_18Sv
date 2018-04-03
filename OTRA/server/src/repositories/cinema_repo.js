@@ -1,32 +1,18 @@
 'use strict'
 
 /**
- * Module that contains the specification of the patients' heartbeat repository.
+ * Module that contains the specification of the Cinemas' repository.
  * @module cinemas_repo
  * @public
  */
 
 module.exports.createRepository = createRepository
-module.exports.computePatientHealth = computePatientHealth
 
 /**
  * Module dependencies.
  * @private
  */
-const model = require('./datatypes/cinema')
-
-/**
- * Function that produces the status of the given cinema.
- * @param   {number} lastHeartbeat  - The time instant (in milliseconds) of the last hearbeat.
- * @param   {number} heartrate      - The patient's heart rate (in seconds).
- * @return  {string} The computed patient health (i.e. OK | DEAD)
- * @api public
- */
-function computePatientHealth(lastHeartbeat, heartRate) {
-    const flatline = (heartRate + heartRate / 2) * 1000
-    const now = Date.now()
-    return (now - lastHeartbeat) > flatline ? 'DEAD' : 'OK'
-}
+const model = require('../datatypes/cinema')
 
 /** 
  * @callback writeCallback
@@ -41,15 +27,15 @@ function computePatientHealth(lastHeartbeat, heartRate) {
 
 /**
  * Factory function that produces a new repository instance.
- * @constructs @type PatientsRepo
+ * @constructs @type CinemaRepo
  * @param   {Array[model.Event]?} - An optional array bearing the initial set of events to 
  *                                  be added to the repository.
- * @return  {PatientsRepo} The newly created repository.
+ * @return  {CinemaRepo} The newly created repository.
  * @api public
  */
-function createRepository(events) {
+function createRepository(Cinema) {
     const DEFAULT_HEARTRATE = 2
-    const patients = new Map()
+    const cinema = new Map()
 
     const getStatus = (patientId) => {
 

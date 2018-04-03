@@ -14,8 +14,7 @@ main(process.argv[2])
  */
 function main(port) {
 
-    const model = require('./src/datatypes')
-
+    const model = require('./src/datatypes/cinema')
     const app_cinema = require('./src/routes/routes_cinema')
     const repo_cinema = require('./src/repositories/cinema_repo')
         
@@ -30,7 +29,7 @@ function main(port) {
     const repo_sessao = require('./src/repositories/sessao_repro')
     */
     
-    const server = app(repo_cinema);
+    const server = app_cinema(repo_cinema);
 
     server.listen(Number(port))
     console.log(`Server is listening on port ${port}`)
