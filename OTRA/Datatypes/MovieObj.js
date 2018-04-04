@@ -1,6 +1,8 @@
 module.exports={
-    MovieSearchItemDto,
-    MovieSearchDto
+
+    MovieSearchDto,
+    MovieDetailDto,
+    CreditsDto
 }
 
 function MovieSearchItemDto(obj) {
@@ -36,3 +38,35 @@ function MovieSearchDto(obj) {
 
 }
 
+function MovieDetailDto(obj) {
+  this.tagline = obj.tagline
+  this.id = obj.id
+  this.originalTitle = obj.body.original_title
+  this.overView = obj.body.overview
+  this.releaseDate = obj.body.release_date
+  this.voteAverage = obj.body.vote_average
+  this.img = 'https://image.tmdb.org/t/p/w500' + obj.body.poster_path
+  this.toString = function () {
+  }
+  this.title=this.originalTitle
+}
+
+function CreditsDto(obj) {
+  this.cast = []
+  var result = obj.body.cast
+  result.forEach(element => {
+
+    this.cast.push(new CastItemDbo(element))
+  })
+  this.toString = function () {
+  }
+}
+
+function CastItemDbo(obj) {
+  this.name = obj.name.toString()
+  this.id = obj.id.toString()
+  this.character = obj.character.toString()
+
+  this.toString = function () {
+  }
+}

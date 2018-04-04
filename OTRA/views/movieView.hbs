@@ -1,0 +1,35 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <ul>
+
+            <h1><b>{{originalTitle}}</b></h1>
+
+            <td><img width='250px' src='{{img}}'/> <button type="submit" formaction="/sessions?q={{id}}">Available Sessions</button>  <button type="submit" formaction="/sessions?q={{id}}">Post Sessions</button>  </td>
+
+            <br><b>Release Date: </b>{{releaseDate}}</br>
+
+            <br><b>Overview: </b>{{overView}}</br>
+
+
+            <br><b>Cast Members</b></br>
+            <table>
+
+            {{#each cast.cast}}
+                <tr>
+                <td>
+
+                    <a >
+                        {{name}}
+                    </a><td>(as {{character}})</td>
+
+                </td>
+                </tr>
+
+            {{/each}}
+            </table>
+        </ul>
+    </body>
+</html>
