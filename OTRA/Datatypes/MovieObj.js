@@ -40,7 +40,7 @@ function MovieSearchDto(obj) {
 
 function MovieDetailDto(obj) {
   this.tagline = obj.tagline
-  this.id = obj.id
+  this.id = obj.body.id
   this.originalTitle = obj.body.original_title
   this.overView = obj.body.overview
   this.releaseDate = obj.body.release_date

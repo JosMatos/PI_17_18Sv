@@ -48,7 +48,7 @@ function movieNameQuery(name,page,cb) {
 
 
 
-function postSessionPlace (Movie ) {
+function postSessionPlace (Movie) {
   if (!configFilePath || !fs.existsSync(configFilePath)) {
     console.error(`Could not find file ${configFilePath}`)
     console.error('Usage: node app <configFilePath>')

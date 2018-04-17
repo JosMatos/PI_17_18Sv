@@ -7,9 +7,14 @@
 
             <h1><b>{{originalTitle}}</b></h1>
 
-            <td><img width='250px' src='{{img}}'/> <button type="submit" formaction="/sessions?q={{id}}">Available Sessions</button>  <button type="submit" formaction="/sessions?q={{id}}">Post Sessions</button>  </td>
+            <img width='250px' src='{{img}}'/>
 
-            <br><b>Release Date: </b>{{releaseDate}}</br>
+
+                <form action="/movies/{{id}}/sessionsadd" method="get" id="bt">
+
+                <button type="submit" >Post Sessions</button>
+                </form>
+            <br><b>Release Date: </b>{{releaseDate}}
 
             <br><b>Overview: </b>{{overView}}</br>
 
@@ -22,6 +27,7 @@
                 <td>
 
                     <a >
+
                         {{name}}
                     </a><td>(as {{character}})</td>
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    </head>
+    <body>
+
+            <table  class="table borde" style="margin-top: 20px; text-align: center; width: 400px;" align="center">
+                {{#each sessions.session}}
+                    <tr>
+                        <td>
+                        <li><a> moviename:   {{moviename}}</a> </li>
+                        <li><a> Data :   {{sessiondate}} </a></li>
+                        <li><a>Cinema :   {{cinemanamae}} </a></li>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>
+
+    </body>
