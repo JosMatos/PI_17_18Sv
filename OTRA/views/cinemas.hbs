@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {{> head}}
+  </head>
+  <body>
+    {{> menu cinemas="active" }}    
+     <div class="ui segment">
+     <h4 class="ui dividing header">Cinemas Registados</h4>
+      <div class="ui middle aligned animated selection list container">
+          {{#each cinemas}}
+            <div class="item">
+              <img src="/OTRA/images/Camera_cinema_48.png"></i>
+              <div class="content">
+                <div class="header">
+                  <a href="/OTRA/cinemas/{{id}}">{{name}}</a>
+                </div>
+                 {{#if cidade_localizacao}}<div class="description">{{cidade_localizacao}}</div>{{/if}}
+              </div>
+            </div>
+          {{/each}}
+      </div>
+    </div>
+    <div class="ui container">
+      <div class="ui right floated basic blue button" data-tooltip="Registar Cinema" data-position="left center">
+        <a href="/OTRA/cinema/new.hbs"><i class="plus icon"></i> New </a>
+      </div>
+    </div>
+  </body>
+</html>

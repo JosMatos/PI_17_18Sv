@@ -1,0 +1,73 @@
+1- vizualização de dados UI  - como é que queres fazer a UI inicial?
+
+- popular bd com jason.
+
+ 
+--> CINEMA 
+ 
+     /CINEMA/:id  GET/POST     -> Adiciona cinema
+	   /CINEMAS                  -> Retorna Lista de CINEMAS
+ 
+ ID_CINEMA;
+ NOME;
+ CIDADE_LOCALIZACAO;
+ SALAS [];
+
+
+ --> FILME   [ /FILME/:id   -> GET/POST     -> Adiciona/ obtem filme filme 
+              /FILMES      -> Retorna Lista de Filmes
+
+ ID_FILE; -> interno
+ TITULO;
+ ANO_PUBLICACAO;
+ DURACAO;  [em minutos]
+ [info obtida da api The Movie Database (TMDb)]
+ 
+  
+--> SALAS 
+        
+     /SALAS/:id  GET/POST     -> Adiciona sala ao cinema
+	   /SALAS                   -> Retorna SALA de CINEMAS
+
+ ID_SALA := ID_CINEMA || NR_SALA
+ CINEMA_ASSOCIADO := 'Nome do Cinema' [o Id do cinema esta na chave primaria]
+ NOME_SALA;
+ NR_FILAS;
+ NR_LUGAR_FILA;
+ 
+ 
+ --> SESSOES  
+        /SESSAO/set_sessao -> adiciona sessao a sala / cinema
+			  /SESSAO/id_sessao  -> retorna informação da sessao e ocupação
+			  /SESSAO/make_reserve ->(id_sessao + Lugar + ???nr_telefone??? )
+   
+   ID_SALA ;
+   ID_SESSAO ; [unico] -> ID_SALA|| DATA_EXIBICAO (DATHORA)
+   ID_FILME;
+   DATA_EXIBICAO [DD-MM-YYYY];
+   
+   --Reservas passa para entidade [abaixo]
+   RESERVAS : array / estrutura em memoria com nr de posicoes  NR_FILAS * NR_LUGAR_FILA
+   /* 
+   F2  1, 2, 3, 4 , 5, 6, 7, 8, 9, 10 
+   F1  1, 2, 3, 4 , 5, 6, 7, 8, 9, 10
+   */
+ 
+
+--> RESERVAS   -- 27_03_2018 adicionada entidade reservas
+ID_SESSAO ;
+LUGAR_OCUPADO ;
+
+
+ 
+ 
+PARTE 1 do trab
+-> componente de reservas  (utilizadores anónimos)
+  - consulta da informação acerca das sessões existentes e a reserva de bilhetes para essas sessões
+
+
+-> componente de gestão (utilizadores autenticados) [staff]
+  - Parte 1 sem autenticação pode ser ANONIMO
+  - acede a componente de Gestão - gestão (i.e. criação, consulta e alteração)   
+  
+ 

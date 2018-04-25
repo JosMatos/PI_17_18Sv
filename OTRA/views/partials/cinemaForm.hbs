@@ -1,0 +1,23 @@
+<form class="ui form container" method="POST" action={{action}}>
+        <h4 class="ui dividing header">Informação do Cinema</h4>
+        <div class="{{#unless cinema}} required {{/unless}} field">
+            <label>Nome</label>
+            <input type="text" name="name" 
+                {{#if cinema}} value="{{cinema.name}}" readonly
+                {{else}} placeholder="nome do Cinema" {{/if}}
+            />
+        </div>
+        <div class="{{#unless cinema}} required {{/unless}} field">
+            <label>Cidade Localização</label>
+            <input type="text" name="cidade_localizacao" 
+                {{#if cinema}} value="{{cinema.cidade_localizacao}}"
+                {{else}} placeholder="Cidade onde está localizado o cinema" {{/if}}
+            />
+        </div>
+        {{#if cinema}}
+            <button class="ui button" type="submit"> <i class="backward icon"></i>Voltar</button>
+        {{else}}
+            <button class="ui button" type="submit"> <i class="plus icon"></i> Registar</button>
+        {{/if}}
+
+ </form>
