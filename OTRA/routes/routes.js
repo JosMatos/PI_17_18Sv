@@ -13,17 +13,17 @@ const express = require('express')
 const model = require('../Datatypes/OTRAObj')
 
 const cinemasRoutes = require('./routes_cinema')
-//const filmesRoutes  = require('./routes_filme')
+const filmesRoutes  = require('./routes_filme')
 //const salasRoutes   = require('./routes_sala')
 //const sessoesRoutes = require ('./routes_sessao')
 
 /**
  * Creates an express application instance and initiates it with the set of supported routes.
- * @param {patients_repo.PatientsRepo} - The repository instance to be used
+ * @param {repoCinema, repoFilmes} - Rrepository's to be used
  * @param {string} - The application's root directory
  * @return {express.Application} - The newly created application
  */
-module.exports = exports = function(Repository, root) {
+module.exports = exports = function(repoCinema, repoFilmes, root) {
     
     const app = express()
     const path = require('path')
@@ -52,10 +52,10 @@ module.exports = exports = function(Repository, root) {
 
     app.use(methodOverride('_method'))
 
-    app.use('/OTRA/cinemas', cinemasRoutes(Repository, express))
-    //app.use('/OTRA/filmes', filmesRoutes(Repository, express))
-    //app.use('/OTRA/salas', salasRoutes(Repository, express))
-    //app.use('/OTRA/sessoes', sessoesRoutes(Repository, express))
+    app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express))
+    app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express))
+    //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
+    //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
     app.get('/OTRA', (req, res) => { res.render('home.hbs')})
     app.get('/OTRA/cinema/new.hbs', (req, res) => { res.render('cinemaNew.hbs')} )

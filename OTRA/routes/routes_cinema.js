@@ -53,35 +53,6 @@ module.exports = function(cinemasRepository, express) {
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    router.post('/', (req, res) => {
-        console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        const info = req.body
-
-        if (!info || !info.|| !info.)
-            return res.sendStatus(400)
-        
-        
-        cinemasRepository.getCinemas((err, data) => {
-            // TODO: Error handling
-            res.set("Content-Type", "application/json")
-            res.send(JSON.stringify(data))
-        })
-    })
-
-*/
     // Retornas as Salas do Cinema id
     router.get('/:id/salas', (req, res, next ) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
@@ -95,8 +66,6 @@ module.exports = function(cinemasRepository, express) {
         })
     })
  
-
-
     // Retorna info do cinema com o id, passado o Id do cinema...
     router.get('/:id', (req, res, next ) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
@@ -109,12 +78,16 @@ module.exports = function(cinemasRepository, express) {
         })
     })
 
-
-    // Retorna info do cinema com o id, passado o Id do cinema...
+    // Redirect para a pagina principal...
     router.post('/:id', (req, res, next ) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
         res.redirect(303, `${req.baseUrl}`)
-       
+      
+        
+
+    // Afecta a Sala passada por parametro ao Cinema com o Id passado    
+
+
     })
   
     return router

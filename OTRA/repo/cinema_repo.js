@@ -34,7 +34,6 @@ const model = require('../Datatypes/OTRAObj')
  */
 function createRepository() {
      const cinemas = new Map()
-     const filmes = new Map()
      const salas = new Map()
      const sessoes = new Map()
 
@@ -43,29 +42,10 @@ function createRepository() {
         const cinema = cinemas.get(cinemaId)
         if (!cinema)
             return new model.Cinema(cinemaId, 'UNKNOWN', 'UNKNOW')
-
         return  cinema;   
         }
 
-    
-    const addCinema = () => {
-        let patient = cinema.get(name,cidade_localizacao);
-        if (!cinema) {
-            cinemas.set(event.source, patient = { 
-                CinemaData: new model.Cinema(id, name, cidade_localizacao), 
-                sessoes: new Map()
-            })
-        }
-
-        let eventList = patient.events.get(event.type)
-        if (!eventList) 
-            patient.events.set(event.type, eventList = [])
-
-        eventList.push(event);
-    }
-
-
-    return {
+     return {
 
         /**
          * Exposed for testing purposes only
