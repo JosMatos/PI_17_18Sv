@@ -1,18 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
 
+
+
+
+
+
+<body style="background-image:url(http://thewaycom.com.br/novosite/wp-content/uploads/2016/12/audiovisual.jpg)">
+
+
+
+{{> menu home="active"}}
     <h1 style="color: white"><b>Search Results</b></h1>
-        <table  class="table borde" style="margin-top: 20px; text-align: center; width: 400px;" align="center">
-            {{#each results}}
+ <table  class="table bord" style="margin-top: 20px; text-align: center; width: 100px;" align="center">-->
+           {{#each results}}
+            <td>
+           <!-- <table  class="table borde" style="margin-top: 20px; text-align: center; width: 100px;" align="center" border="">-->
+            <!--<tr>-->
+
+                <li>
                 <tr>
-                    <li>
+
+                            <a href = 'movies/{{id}}' >
+                           {{title }}
+                            </a>
 
 
-                            <a href = 'movies/{{id}}'>
-                                {{title }}
-                        <tr><img src='{{img}}'width='250px'></tr>
-                        </a>
-                    </li>
+                    <a href = 'movies/{{id}}'>
+                            <img src='{{img}}'width='250px' align="bottom">
+                    </a>
+                       <!-- </tr>-->
+
+                </li>
                 </tr>
+            <!--</table>-->
+                </td>
+
             {{/each}}
-        </table>
+
+   </table>
 
 
+</body>
