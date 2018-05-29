@@ -9,24 +9,29 @@
      <h4 class="ui dividing header">Cinemas Registados</h4>
       <div class="ui middle aligned animated selection list container">
           {{#each cinemas}}
-            <div class="item">
-              <img src="/OTRA/images/Camera_cinema_48.png"></i>
-              <div class="content">
-                <div class="header">
-                  <a href="/OTRA/cinemas/{{id}}">{{name}}</a>
+            <form class="ui form container" method="POST" action={{action}}></form>
+                 <div class="ui grid">
+                    <div class="two wide column">
+                        <div class="ui small image floated left"><img src="/OTRA/images/Camera_cinema_48.png"></div>
+                    </div>
+                    <div class="eight wide column">
+                        <a href="/OTRA/cinemas/{{id}}">{{name}}</a>
+                        {{#if cidade_localizacao}}<div class="description">{{cidade_localizacao}}</div>{{/if}}
+                    </div>
+                    <div class="six wide column">
+                      <div class="ui right checkbox">
+                        <input type="checkbox" name="chkCinema">
+                        <label>Selecionar</label>
+                      </div>
+                    </div>
                 </div>
-                 {{#if cidade_localizacao}}<div class="description">{{cidade_localizacao}}</div>{{/if}}
-              </div>
-            </div>
           {{/each}}
       </div>
     </div>
-    <div class="ui container">
-            <div class="ui right floated basic blue button" data-tooltip="Selecionar Cinema" data-position="left center">
-        <a href="/OTRA/cinema/new.hbs"><i class="check icon"></i> Selecionar </a>
+      <div class="ui container">
+          <button class="ui right floated basic blue button"  data-tooltip="Selecionar Cinema" type="submit"> 
+            <i class="check icon"></i>Selecionar</button>      
       </div>
-      
-      
       <div class="ui right floated basic blue button" data-tooltip="Registar Cinema" data-position="left center">
         <a href="/OTRA/cinema/new.hbs"><i class="plus icon"></i> Criar </a>
       </div>

@@ -17,6 +17,9 @@ const filmesRoutes  = require('./routes_filme')
 //const salasRoutes   = require('./routes_sala')
 //const sessoesRoutes = require ('./routes_sessao')
 
+
+const userSessionRoutes = require('./routes_user_session')
+
 /**
  * Creates an express application instance and initiates it with the set of supported routes.
  * @param {repoCinema, repoFilmes} - Rrepository's to be used
@@ -29,6 +32,24 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
     const path = require('path')
     const hbs = require('hbs')
     const methodOverride = require('method-override')
+
+
+    
+    // 26_04_2018 -  Modulos de suporte para Login
+    const signInRoutes = {
+        login: '/OTRA/login',
+        logout: '/OTRA/logout'
+    }
+    const expressSession = require('express-session')({ secret: 'its a secret', resave: true, saveUninitialized: true })
+    const passport = require('passport')
+    const LocalStrategy = require('passport-local').Strategy
+
+    passport.use(new LocalStrategy(
+        function(username, password, done) {
+            const user = usersRepository.verifyCredentials(username, password)
+            return user ? done(null, user) : done(null, false);
+        }
+    ))
 
     app.set('view engine', 'hbs')
     app.set('views', path.join(root, '/views'))
@@ -52,13 +73,29 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
 
     app.use(methodOverride('_method'))
 
+
+    // 26_04_2018 -  Modulos de suporte para Login
+    app.use(expressSession);
+    app.use(passport.initialize())
+    app.use(passport.session())   
+
+
     app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express))
     app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express))
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
-    app.get('/OTRA', (req, res) => { res.render('home.hbs')})
+    app.get('/OTRA', (req, res) => { 
+        res.render('home.hbs', { menuState: { home: "active", signInRoutes, user: req.user } })
+    })
+    
     app.get('/OTRA/cinema/new.hbs', (req, res) => { res.render('cinemaNew.hbs')} )
     
+
+        // 26_04_2018 -  Modulos de suporte para Login
+    passport.serializeUser((user, done) => { done(null, user) })
+    passport.deserializeUser((id, done) => { done(null, id) })
+
+
     return app
 }
