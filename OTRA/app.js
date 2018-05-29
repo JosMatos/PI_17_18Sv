@@ -1,6 +1,6 @@
 'use strict'
 
-main(process.argv[2])
+main(3000)
 
 /**
  * The application's entry point.
@@ -15,5 +15,5 @@ function main(port) {
     const repoFilmes = require('./repo/filmes_repo').createRepository() 
 
     const server = app(repoCinema, repoFilmes, __dirname)
-    server.listen(Number(port), () => console.log(`Server is listening on port ${port}`))
+    server.listen(Number(port), () => console.log(`Server is listening on  http://localhost:${port}/OTRA/`))
 }
