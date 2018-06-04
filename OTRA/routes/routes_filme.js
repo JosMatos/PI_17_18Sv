@@ -28,8 +28,25 @@ module.exports = function(filmesRepository, express) {
             html: () => res.render('filmesSearch.hbs', {layout : false})
         })
   })
- 
 
+  router.post('/addfavourite', (req, res) => {
+    console.log(`Servicing ${req.method} ${req.originalUrl}`)
+
+    const info = req.body.movieId
+    // Validar a informação recebida, se vem toda
+
+    if (!info )
+      return res.sendStatus(400)
+
+
+
+    const new_filme = filmesRepository.getfilme(info)
+
+    filmesRepository.updateFilme(new_filme, (err) => {
+      if (err) throw err
+      res.redirect(303, `${req.originalUrl}/${info.id}`)
+    })
+  })
   /*
 Integração Tiago  - 2018_04_22
   */
@@ -46,11 +63,14 @@ Integração Tiago  - 2018_04_22
 router.get('/movies/:movieId', (req, resp, next) => {
   db.movieIDQuery(req.params.movieId, (err, d) => {
     if(err) return next(err)
-  // const msg = req.flash('inputError')
+  d.id=req.params.movieId;
+    // const msg = req.flash('inputError')
   //  if(msg)  d.inputError = {message: msg}
     resp.render('movieView', d)
   })
 })
+
+
 
 return router
 }

@@ -35,21 +35,21 @@ const model = require('../Datatypes/OTRAObj')
 function createRepository() {
      const filmes = new Map()
     
-     const getCinema = (cinemaId) => {
-        const cinema = cinemas.get(cinemaId)
-        if (!cinema)
-            return new model.Cinema(cinemaId, 'UNKNOWN', 'UNKNOW')
+     const getFilme = (id) => {
+        const filme = filmes.get(id)
+        if (!filme)
+            return new model.MovieDetailDto(obj)
 
-        return  cinema;   
+        return  filme;
         }
-
+/*
     
-    const addCinema = () => {
-        let patient = cinema.get(name,cidade_localizacao);
-        if (!cinema) {
-            cinemas.set(event.source, patient = { 
-                CinemaData: new model.Cinema(id, name, cidade_localizacao), 
-                sessoes: new Map()
+    const addFilme = () => {
+        let patient = filmes.get(filmes);
+        if (!filmes) {
+            filmes.set(event.source, patient = {
+                FilmeData: new MovieDetailDto(obj)
+
             })
         }
 
@@ -60,7 +60,7 @@ function createRepository() {
         eventList.push(event);
     }
 
-
+*/
     return {
 
         /**
@@ -81,11 +81,11 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getCinemas: (cb) => {
-            const cinemasData = Array.from(cinemas.keys()).map(
-                (cinemaId) => cinemas.get(cinemaId).cinemaData
+        getFilmes: (cb) => {
+            const filmeData = Array.from(filmes.keys()).map(
+                (filmeId) => filmes.get(filmeId).filmesData
             )
-            cb(null, cinemasData)
+            cb(null, filmeData)
         },
 
         /** 
@@ -95,9 +95,9 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getCinema: (cinemaId, cb) => {
-            const cinema = getCinema(Number(cinemaId))
-            cb(null, cinema ? cinema.cinemaData : cinema)
+        getFilme: (filmeId, cb) => {
+            const filme = getFilme(filmeId)
+          cb(null, filme ? filme.filmesData : filme)
         },
 
         /**
@@ -106,40 +106,32 @@ function createRepository() {
          * @param   {writeCallback} cb - Completion callback.
          * @memberof CinemasRepo# 
          */
-        updateCinema: (cinema, cb) => {
-            let existingCinema = cinemas.get(Number(cinema.id))
-            
+        updateFilme: (filme, cb) => {
+            let existingfilmes = filmes.get(Number(cinema.id))
+
             // se não existe cinema crio a nova entidade Cinema
-            if (!existingCinema) {
-                existingCinema = {
-                    cinemaData: new model.Cinema(cinema.id, cinema.name, cinema.cidade_localizacao), 
-                    salas: new Map()
+            if (!existingfilmes) {
+                existingfilmes = {
+                    filmesData: new model.MovieDetailDto(filme)
+
                 }
             }
-            existingCinema.cinemaData.name = cinema.name
+           /* existingfilmes.filmesData.id = cine
             existingCinema.cinemaData.cidade_localizacao= cinema.cidade_localizacao
-            cinemas.set(cinema.id, existingCinema)
+            cinemas.set(cinema.id, existingCinema)*/
             cb()
         },
 
-        /** 
-         * Gets the list of Movie Room from Cinema.
-         * @param   {readCallback} cb - Completion callback.
-         * @memberof CinemasRepo#
-         */
 
-         getCinemaSalas: (cinemaId, cb) => { 
-            const cinemaSalas = Array.from(cinemas.keys()).map((cinemaId) => getSalas(cinemaId))
-            cb(null, cinemaSalas)
-        },
+
 
         /**
-         * Gets the Max Cinema ID present in Cinema Repo.
+         * Gets the Max movies  present in movie Repo.
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
         getMaxId: () => {
-            return cinemas.size
+            return filmes.size
         }
        
     }

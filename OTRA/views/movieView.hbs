@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
+
+
+
+
+
+
+<body style="background-image:url(http://thewaycom.com.br/novosite/wp-content/uploads/2016/12/audiovisual.jpg)">
+<body bgcolor="#E6E6FA">
+
+
+{{> menu home="active"}}
+<div class="">
+    <ul  style="color: white;" >
+
+        <div  style="text-align: center;">
+            <form action="/OTRA/filmes/addfavourite" method="POST">
+                <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+            <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
+
+            <button class="ui button" type="submit"> <i class="plus icon"> </i> Adicionar Favorito</button>
+        </div>
+        </form>
+            <h1><b>{{originalTitle}}</b></h1>
+
+            <td><img width='250px' src='{{img}}'/></td>
+            <br><b>Release Date: </b>{{releaseDate}}
+            </br>
+        </div>
+
+        <br><b>Overview: </b>{{overView}}</br>
+
+        <table class="table table-bordered" style="margin-top: 20px; text-align: center; width: 400px;" align="center">
+
+            <td><b>Cast Members</b>
+            </td>
+            <td><b>Character</b>
+            </td>
+            {{#each cast.cast}}
+                <tr>
+                    <td>
+                        <a style="color: white;" href = '/actors/{{id}}'>
+                            {{name}}
+                        </a>
+                    <td style="color: white;">{{character}}</td>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+
+        <div id="all">
+
+
+            <div>
+                <form style="color: black; padding-top: 20pt">
+
+                    <input type="hidden" value="{{originalTitle}}" id="movieName">
+                    <input type="hidden" value = "{{id}}" id="movieId">
+
+                </form>
+            </div>
+        </div>
+
+
+    </ul>
+</div>

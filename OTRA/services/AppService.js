@@ -1,5 +1,5 @@
 'use strict'
-const MovieObj = require('./../Datatypes/MovieObj')
+const MovieObj = require('../Datatypes/OTRAObj')
 const api_key = '87469992e9a644f184ee96f69c303569'
 const http=require('request')
 const fs= require('fs')
@@ -21,6 +21,7 @@ function movieNameQuery(name,page,cb) {
       var movieResult = new MovieObj.MovieSearchDto(data)
       movieResult.query= name.toString()
     movieResult.title=name
+
 
     cb(null,movieResult )
   })
