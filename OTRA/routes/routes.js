@@ -16,9 +16,16 @@ const cinemasRoutes = require('./routes_cinema')
 const filmesRoutes  = require('./routes_filme')
 //const salasRoutes   = require('./routes_sala')
 //const sessoesRoutes = require ('./routes_sessao')
-
-
 const userSessionRoutes = require('./routes_user_session')
+const bodyParser = require('body-parser')
+
+
+
+const passport = require('passport')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('connect-flash')
+
 
 /**
  * Creates an express application instance and initiates it with the set of supported routes.
@@ -75,13 +82,18 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
 
 
     // 26_04_2018 -  Modulos de suporte para Login
-    app.use(expressSession);
+
+
+    app.use(cookieParser())
+    app.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: true }))
+    app.use(expressSession);    app.use(flash())
     app.use(passport.initialize())
-    app.use(passport.session())   
+    app.use(passport.session())
 
 
     app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express))
     app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express))
+    app.use('/OTRA',userSessionRoutes)
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
