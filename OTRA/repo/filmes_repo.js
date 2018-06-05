@@ -94,7 +94,13 @@ function createRepository() {
 
 
 
-
+        removeFavourite: (filmeid,cb)=>{
+          let  addfilme= filmes.get(filmeid);
+          if (addfilme) {
+            filmes.delete(filmeid)
+          }
+          cb()
+        },
 
       addFavourite : (filme,cb) => {
         let  addfilme= filmes.get(Number(filme.id));

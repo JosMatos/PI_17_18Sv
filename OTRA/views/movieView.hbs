@@ -17,8 +17,9 @@
 <div class="">
     <ul  style="color: white;" > <div  style="text-align: center;">
         {{#if isfav}}
-            <form action="/OTRA/filmes/movies/{{id}}" method="PUT">
+            <form action="/OTRA/filmes/movies/{{id}}" method="POST">
                 <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+                <input type="hidden" value = false id="toadd" name="toadd"  >
                 <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
                     <button class="ui button" type="submit" > <i class="minus icon"> </i> Remover Favorito</button>
@@ -27,6 +28,7 @@
 
             <form action="/OTRA/filmes/movies/{{id}}" method="POST">
                 <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+                <input type="hidden" value = true id="toadd" name="toadd"  >
             <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
             <button class="ui button" type="submit"> <i class="plus icon"> </i> Adicionar Favorito</button>

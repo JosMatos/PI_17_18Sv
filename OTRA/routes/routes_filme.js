@@ -33,30 +33,34 @@ module.exports = function(filmesRepository, express) {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
 
     const info = req.body.movieId
-    db.movieIDQuery(req.body.movieId, (err, data) => {
-      if(err) return next(err)
-      data.id=req.params.movieId;
 
+  if (req.body.toadd=="false") {
+    filmesRepository.removeFavourite(info, (err) => {
+     if (err) throw err
 
-    // Validar a informação recebida, se vem toda
-
-    if (!info )
-      return res.sendStatus(400)
-
-
-
-    //const new_filme = model.
-
-    filmesRepository.addFavourite(data, (data,err) => {
-      if (err) throw err
-
-      res.redirect(303, `${req.originalUrl}`)
-
-
+     res.redirect(303, `${req.originalUrl}`)
 
     })
-  })
+  }else {
+    db.movieIDQuery(req.body.movieId, (err, data) => {
+      if (err) return next(err)
+      data.id = req.params.movieId;
 
+      // Validar a informação recebida, se vem toda
+
+      if (!info)
+        return res.sendStatus(400)
+
+      //const new_filme = model.
+
+      filmesRepository.addFavourite(data, (data, err) => {
+        if (err) throw err
+
+        res.redirect(303, `${req.originalUrl}`)
+
+      })
+    })
+  }
   })
 
 
@@ -72,7 +76,17 @@ Integração Tiago  - 2018_04_22
     })
   })
 /**/
+router.put('/movies/:movieId',(req,res)=>{
+   const info = req.body.movieId
+     filmesRepository.removeFavourite(info, (err) => {
+    if (err) throw err
 
+       res.redirect(303, `${req.originalUrl}`)
+
+
+
+     })
+  })
 router.get('/movies/:movieId', (req, resp, next) => {
   db.movieIDQuery(req.params.movieId, (err, data) => {
     if(err) return next(err)
