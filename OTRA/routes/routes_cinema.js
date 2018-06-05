@@ -72,8 +72,8 @@ module.exports = function(cinemasRepository, express) {
         cinemasRepository.getCinema(req.params.id,(err, data) => {
             if (err) throw err
             res.format({
-                html: () => res.render('cinema.hbs', {cinemaInfo: data }),
-                json: () => res.json(data)
+              html: () => res.render('cinema.hbs', {cinemaInfo: data }),
+              json: () => res.json(data)
             })
         })
     })

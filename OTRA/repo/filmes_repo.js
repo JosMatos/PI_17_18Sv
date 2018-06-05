@@ -37,38 +37,24 @@ function createRepository() {
     
      const getFilme = (id) => {
         const filme = filmes.get(id)
-        if (!filme)
-            return new model.MovieDetailDto(obj)
+        //if (!filme)
+          //  return new model.MovieDetailDto(obj)
 
         return  filme;
         }
 /*
     
-    const addFilme = () => {
-        let patient = filmes.get(filmes);
-        if (!filmes) {
-            filmes.set(event.source, patient = {
-                FilmeData: new MovieDetailDto(obj)
-
-            })
-        }
-
-        let eventList = patient.events.get(event.type)
-        if (!eventList) 
-            patient.events.set(event.type, eventList = [])
-
-        eventList.push(event);
-    }
 
 */
-    return {
+    // noinspection JSAnnotator
+  return {
 
         /**
          * Exposed for testing purposes only
          */
         __filmess__: filmes,
 
-        /** 
+        /**
          * Registers the given event.
          * @param   {Event} event - The event to be registered.
          * @param   {writeCallback} cb - Completion callback.
@@ -81,6 +67,7 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
+
         getFilmes: (cb) => {
             const filmeData = Array.from(filmes.keys()).map(
                 (filmeId) => filmes.get(filmeId).filmesData
@@ -95,19 +82,44 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getFilme: (filmeId, cb) => {
+        getFilme: (filmeId) => {
             const filme = getFilme(filmeId)
-          cb(null, filme ? filme.filmesData : filme)
+          return filme
         },
 
-        /**
+
+
+
+
+
+
+
+
+
+      addFavourite : (filme,cb) => {
+        let  addfilme= filmes.get(Number(filme.id));
+        if (!addfilme) {
+          addfilme = filme
+          filmes.set(filme.id,filme)
+          }
+
+        cb()
+      },
+
+
+
+
+
+
+
+      /**
          * Updates the given cinema information.
          * @param   {Cinema} cinema - The cinema information to be updated.
          * @param   {writeCallback} cb - Completion callback.
          * @memberof CinemasRepo# 
          */
         updateFilme: (filme, cb) => {
-            let existingfilmes = filmes.get(Number(cinema.id))
+            let existingfilmes = filmes.get(Number(filme.id))
 
             // se não existe cinema crio a nova entidade Cinema
             if (!existingfilmes) {

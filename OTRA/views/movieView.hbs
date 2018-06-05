@@ -15,16 +15,24 @@
 
 {{> menu home="active"}}
 <div class="">
-    <ul  style="color: white;" >
+    <ul  style="color: white;" > <div  style="text-align: center;">
+        {{#if isfav}}
+            <form action="/OTRA/filmes/movies/{{id}}" method="PUT">
+                <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+                <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
-        <div  style="text-align: center;">
-            <form action="/OTRA/filmes/addfavourite" method="POST">
+                    <button class="ui button" type="submit" > <i class="minus icon"> </i> Remover Favorito</button>
+                </div>  </form>
+        {{else}}
+
+            <form action="/OTRA/filmes/movies/{{id}}" method="POST">
                 <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
             <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
             <button class="ui button" type="submit"> <i class="plus icon"> </i> Adicionar Favorito</button>
-        </div>
-        </form>
+        </div>  </form>
+        {{/if}}
+
             <h1><b>{{originalTitle}}</b></h1>
 
             <td><img width='250px' src='{{img}}'/></td>

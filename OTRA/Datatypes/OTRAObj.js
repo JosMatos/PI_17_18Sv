@@ -42,6 +42,7 @@ function MovieSearchItemDto(obj) {
   //caso a imagem não exista colocar uma imagem 'no image'
   this.img = obj.poster_path == undefined? 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'
     :'https://image.tmdb.org/t/p/w500'+ obj.poster_path
+  this.isfav
   this.toString = function (){
 
   }

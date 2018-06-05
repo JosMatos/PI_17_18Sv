@@ -29,10 +29,15 @@ module.exports = function(filmesRepository, express) {
         })
   })
 
-  router.post('/addfavourite', (req, res) => {
+  router.post('/movies/:movieId', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
 
     const info = req.body.movieId
+    db.movieIDQuery(req.body.movieId, (err, data) => {
+      if(err) return next(err)
+      data.id=req.params.movieId;
+
+
     // Validar a informação recebida, se vem toda
 
     if (!info )
@@ -40,13 +45,21 @@ module.exports = function(filmesRepository, express) {
 
 
 
-    const new_filme = filmesRepository.getfilme(info)
+    //const new_filme = model.
 
-    filmesRepository.updateFilme(new_filme, (err) => {
+    filmesRepository.addFavourite(data, (data,err) => {
       if (err) throw err
-      res.redirect(303, `${req.originalUrl}/${info.id}`)
+
+      res.redirect(303, `${req.originalUrl}`)
+
+
+
     })
   })
+
+  })
+
+
   /*
 Integração Tiago  - 2018_04_22
   */
@@ -61,12 +74,16 @@ Integração Tiago  - 2018_04_22
 /**/
 
 router.get('/movies/:movieId', (req, resp, next) => {
-  db.movieIDQuery(req.params.movieId, (err, d) => {
+  db.movieIDQuery(req.params.movieId, (err, data) => {
     if(err) return next(err)
-  d.id=req.params.movieId;
+  data.id=req.params.movieId;
+    if(filmesRepository.getFilme(data.id))
+      data.isfav=true;
+    else
+      data.isfav=false;
     // const msg = req.flash('inputError')
   //  if(msg)  d.inputError = {message: msg}
-    resp.render('movieView', d)
+    resp.render('movieView', data)
   })
 })
 
