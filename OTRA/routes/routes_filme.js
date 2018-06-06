@@ -33,9 +33,9 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
 
     const info = req.body.movieId
-
-  if (req.body.toadd=="false") {
-    filmesRepository.removeFavourite(info, (err) => {
+    filmesRepository.getFilme(info,(data,err)=> {
+  if (data) {
+    filmesRepository.removeFavourite(data, (removeres,err) => {
      if (err) throw err
 
      res.redirect(303, `${req.originalUrl}`)
@@ -53,7 +53,7 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
 
       //const new_filme = model.
 
-      filmesRepository.addFavourite(data, (data, err) => {
+      filmesRepository.addFavourite(data, (data2, err) => {
         if (err) throw err
 
         res.redirect(303, `${req.originalUrl}`)
@@ -62,7 +62,7 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
     })
   }
   })
-
+})
 
   /*
 Integração Tiago  - 2018_04_22
@@ -92,15 +92,19 @@ router.get('/movies/:movieId', (req, resp, next) => {
   db.movieIDQuery(req.params.movieId, (err, data) => {
     if(err) return next(err)
   data.id=req.params.movieId;
-    if(filmesRepository.getFilme(data.id))
-      data.isfav=true;
+    filmesRepository.getFilme(data.id,(data2,err)=> {
+if (err)
+      data.isfav = false;
     else
-      data.isfav=false;
-    // const msg = req.flash('inputError')
-  //  if(msg)  d.inputError = {message: msg}
-    resp.render('movieView',
-      { menuState: { home: "active", signInRoutes, user: req.user },
-      data :data})
+      data.isfav = true;
+      // const msg = req.flash('inputError')
+      //  if(msg)  d.inputError = {message: msg}
+      resp.render('movieView',
+        {
+          menuState: {home: "active", signInRoutes, user: req.user},
+          data: data
+        })
+    })
   })
 })
 

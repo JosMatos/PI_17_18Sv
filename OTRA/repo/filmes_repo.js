@@ -7,7 +7,7 @@
  */
 
 module.exports.createRepository = createRepository
-
+const http = require('request')
 /**
  * Module dependencies.
  * @private
@@ -33,6 +33,8 @@ const model = require('../Datatypes/OTRAObj')
  * @api public
  */
 function createRepository() {
+
+  const SESSION_MOVIES = 'http://127.0.0.1:5984/sessionmovies/'
      const filmes = new Map()
     
      const getFilme = (id) => {
@@ -82,35 +84,71 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getFilme: (filmeId) => {
-            const filme = getFilme(filmeId)
-          return filme
-        },
+        getFilme:(filmeId,cb)=>{
+
+                     const path = SESSION_MOVIES+filmeId
+                     //const filme = getFilme(filmeId)
+          http.get(path,{json: true}, (err,res,data) =>{
+
+                       if(data.error) return cb(null,data.error)
+                      cb( data,null)
+                     })  },
+
+   /*
+
+                               const filme = getFilme(filmeId)
+                             return filme
+                           },
+
+
+      */
 
 
 
 
 
 
-
-
-        removeFavourite: (filmeid,cb)=>{
-          let  addfilme= filmes.get(filmeid);
+        removeFavourite: (filme,cb)=>{
+          const path = SESSION_MOVIES+filme.id+'?rev='+filme._rev
+          const options = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(filme)
+          }
+          http(path, options, (err, res, body) => {
+            if(err) return cb(err)
+            cb(body,null)
+          })
+        /*  let  addfilme= filmes.get(filmeid);
           if (addfilme) {
             filmes.delete(filmeid)
           }
-          cb()
+          cb()*/
         },
 
       addFavourite : (filme,cb) => {
-        let  addfilme= filmes.get(Number(filme.id));
-        if (!addfilme) {
-          addfilme = filme
-          filmes.set(filme.id,filme)
-          }
+          const path = SESSION_MOVIES+filme.id
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(filme)
+    }
+    http(path, options, (err, res, body) => {
+    if(err) return cb(err)
+    cb(res,null)
+  })
+},
 
-        cb()
-      },
+  /*
+          let  addfilme= filmes.get(Number(filme.id));
+          if (!addfilme) {
+            addfilme = filme
+            filmes.set(filme.id,filme)
+            }
+
+          cb()
+        },
+  */
 
 
 
