@@ -17,7 +17,7 @@ const model = require('../Datatypes/OTRAObj')
  * @param {cinemas_repo.CinemasRepo} - The repository instance to be used
  * @return {express.Application} - The newly created application
  */
-module.exports = function(cinemasRepository, express) {
+module.exports = function(cinemasRepository, express,signInRoutes) {
     
     const router = express.Router()
 
@@ -26,7 +26,10 @@ module.exports = function(cinemasRepository, express) {
         cinemasRepository.getCinemas((err, data) => {
             if (err) throw err
             res.format({
-                html: () => res.render('cinemas.hbs', { cinemas: data }),
+                html: () => res.render('cinemas.hbs', {
+                    menuState: { home: "active", signInRoutes, user: req.user },
+                  cinemas: data
+                }),
                 json: () => res.json(data)
             })
            

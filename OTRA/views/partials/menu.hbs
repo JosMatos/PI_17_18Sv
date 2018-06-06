@@ -7,15 +7,20 @@
         <a class="item {{#if filmes}} active {{/if}}" href="/OTRA/Filmes"><img src="/OTRA/images/466321-200.png"></i>&nbsp;Filmes</a>
         <a class="item {{#if sessoes}} active {{/if}}" href="/OTRA/Sessoes"><img src="/OTRA/images/128002-200.png"></i>&nbsp;&nbsp;Sessoes</a>
         <a class="item {{#if reservas}} active {{/if}}" href="/OTRA/Reservas"><img src="/OTRA/images/467941-200.png"></i>&nbsp;Reservas</a>
-        
+
+
+
+
+
+
             <div class="right menu">
                 {{#if user}}
                     <a class="ui item">
-                        Welcome &nbsp; {{user.name}}
+                        Welcome &nbsp; {{user.username}}
                     </a>
-                    <a class="ui item" href="{{signInRoutes.logout}}">Log out</a>
+                    <a class="ui item" href="/OTRA/logout">Log out</a>
                 {{else}}
-                    <a class="ui item" href="/OTRA/login/">Log in</a>
+                    <a class="ui item" href="/OTRA/login">Log in</a>
                 {{/if}}
             </div>
     </div>

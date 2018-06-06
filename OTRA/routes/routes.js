@@ -19,7 +19,7 @@ const filmesRoutes  = require('./routes_filme')
 const userSessionRoutes = require('./routes_user_session')
 const bodyParser = require('body-parser')
 
-
+const userService=require('../services/userService')
 
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
@@ -53,8 +53,10 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-            const user = usersRepository.verifyCredentials(username, password)
+            const user = userService.authenticate(username, password,(err,user)=>{
             return user ? done(null, user) : done(null, false);
+            })
+          return user ? done(null, user) : done(null, false);
         }
     ))
 
@@ -92,7 +94,7 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
 
 
     app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express))
-    app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express))
+    app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express,signInRoutes))
     app.use('/OTRA',userSessionRoutes)
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))

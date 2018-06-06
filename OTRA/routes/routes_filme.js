@@ -17,7 +17,7 @@ const fs = require('fs')
 const db = require('../services/AppService')
 
 
-module.exports = function(filmesRepository, express) {
+module.exports = function(filmesRepository, express ,signInRoutes) {
 
   const router = express.Router()
 
@@ -25,7 +25,7 @@ module.exports = function(filmesRepository, express) {
  router.get('/', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
         res.format({
-            html: () => res.render('filmesSearch.hbs', {layout : false})
+            html: () => res.render('filmesSearch.hbs',{ menuState: { home: "active", signInRoutes, user: req.user } })
         })
   })
 
@@ -72,7 +72,8 @@ Integração Tiago  - 2018_04_22
       req.query.page = 1
     db.movieNameQuery(req.body.movieTitle,req.query.page,(err, data) => {
       if(err) return next(err)
-      res.render('searchView', data)
+      res.render('searchView', { menuState: { home: "active", signInRoutes, user: req.user },
+        data :data})
     })
   })
 /**/
@@ -97,7 +98,9 @@ router.get('/movies/:movieId', (req, resp, next) => {
       data.isfav=false;
     // const msg = req.flash('inputError')
   //  if(msg)  d.inputError = {message: msg}
-    resp.render('movieView', data)
+    resp.render('movieView',
+      { menuState: { home: "active", signInRoutes, user: req.user },
+      data :data})
   })
 })
 

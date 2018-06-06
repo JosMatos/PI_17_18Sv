@@ -25,7 +25,9 @@ useRouter.post('/login', (req, res, next) => {
   })
 })
 
-
+useRouter.get('/logout', (req, res) => {
+  req.logout(); res.redirect('/OTRA/')
+})
 
 useRouter.post('/register', (req, res, next) => {
   let user = {

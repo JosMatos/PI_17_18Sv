@@ -13,12 +13,13 @@
 <body bgcolor="#E6E6FA">
 
 
-{{> menu home="active"}}
+{{> menu this.menuState }}
 <div class="">
     <ul  style="color: white;" > <div  style="text-align: center;">
-        {{#if isfav}}
-            <form action="/OTRA/filmes/movies/{{id}}" method="POST">
-                <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+        {{#if menuState.user}}
+        {{#if data.isfav}}
+            <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
+                <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
                 <input type="hidden" value = false id="toadd" name="toadd"  >
                 <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
@@ -26,23 +27,23 @@
                 </div>  </form>
         {{else}}
 
-            <form action="/OTRA/filmes/movies/{{id}}" method="POST">
-                <input type="hidden" value = "{{id}}" id="movieId" name="movieId"  >
+            <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
+                <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
                 <input type="hidden" value = true id="toadd" name="toadd"  >
             <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
             <button class="ui button" type="submit"> <i class="plus icon"> </i> Adicionar Favorito</button>
         </div>  </form>
         {{/if}}
+{{/if}}
+            <h1><b>{{data.originalTitle}}</b></h1>
 
-            <h1><b>{{originalTitle}}</b></h1>
-
-            <td><img width='250px' src='{{img}}'/></td>
-            <br><b>Release Date: </b>{{releaseDate}}
+            <td><img width='250px' src='{{data.img}}'/></td>
+            <br><b>Release Date: </b>{{data.releaseDate}}
             </br>
         </div>
 
-        <br><b>Overview: </b>{{overView}}</br>
+        <br><b>Overview: </b>{{data.overView}}</br>
 
         <table class="table table-bordered" style="margin-top: 20px; text-align: center; width: 400px;" align="center">
 
@@ -50,7 +51,7 @@
             </td>
             <td><b>Character</b>
             </td>
-            {{#each cast.cast}}
+            {{#each data.cast.cast}}
                 <tr>
                     <td>
                         <a style="color: white;" href = '/actors/{{id}}'>
@@ -68,8 +69,8 @@
             <div>
                 <form style="color: black; padding-top: 20pt">
 
-                    <input type="hidden" value="{{originalTitle}}" id="movieName">
-                    <input type="hidden" value = "{{id}}" id="movieId">
+                    <input type="hidden" value="{{data.originalTitle}}" id="movieName">
+                    <input type="hidden" value = "{{data.id}}" id="movieId">
 
                 </form>
             </div>
