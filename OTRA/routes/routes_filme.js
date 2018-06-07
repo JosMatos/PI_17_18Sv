@@ -25,7 +25,7 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
  router.get('/', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
         res.format({
-            html: () => res.render('filmesSearch.hbs',{ menuState: { home: "active", signInRoutes, user: req.user } })
+            html: () => res.render('filmesSearch.hbs',{ menuState: { filmes: "active", signInRoutes, user: req.user } })
         })
   })
 
@@ -33,7 +33,7 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
 
     const info = req.body.movieId
-    filmesRepository.getFilme(info,(data,err)=> {
+    filmesRepository.getFavourite(info,(data,err)=> {
   if (data) {
     filmesRepository.removeFavourite(data, (removeres,err) => {
      if (err) throw err
@@ -72,7 +72,7 @@ Integração Tiago  - 2018_04_22
       req.query.page = 1
     db.movieNameQuery(req.body.movieTitle,req.query.page,(err, data) => {
       if(err) return next(err)
-      res.render('searchView', { menuState: { home: "active", signInRoutes, user: req.user },
+      res.render('searchView', { menuState: { filmes: "active", signInRoutes, user: req.user },
         data :data})
     })
   })
@@ -92,7 +92,7 @@ router.get('/movies/:movieId', (req, resp, next) => {
   db.movieIDQuery(req.params.movieId, (err, data) => {
     if(err) return next(err)
   data.id=req.params.movieId;
-    filmesRepository.getFilme(data.id,(data2,err)=> {
+    filmesRepository.getFavourite(data.id,(data2,err)=> {
 if (err)
       data.isfav = false;
     else
@@ -101,7 +101,7 @@ if (err)
       //  if(msg)  d.inputError = {message: msg}
       resp.render('movieView',
         {
-          menuState: {home: "active", signInRoutes, user: req.user},
+          menuState: {filmes: "active", signInRoutes, user: req.user},
           data: data
         })
     })

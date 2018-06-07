@@ -84,7 +84,7 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getFilme:(filmeId,cb)=>{
+        getFavourite:(filmeId,cb)=>{
 
                      const path = SESSION_MOVIES+filmeId
                      //const filme = getFilme(filmeId)
@@ -104,7 +104,16 @@ function createRepository() {
       */
 
 
+      getallFavourites : (cb)=>{
+        let path = SESSION_MOVIES + '_all_docs'
+        request(path, (err, res,body) => {
+          if (err) return cb(err)
 
+          cb(null, body)
+
+        })
+
+      },
 
 
 

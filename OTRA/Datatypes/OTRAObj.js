@@ -99,5 +99,12 @@ function CastItemDbo(obj) {
   this.toString = function () {
   }
 }
+function reserva (obj) {
+  this.id = obj.id.toString()
+  this.sessionID=obj.sessionID.toString()
+  this.toString = function(){
+
+  }
+}
 
 

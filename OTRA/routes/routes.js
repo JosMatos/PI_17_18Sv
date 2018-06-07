@@ -16,6 +16,7 @@ const cinemasRoutes = require('./routes_cinema')
 const filmesRoutes  = require('./routes_filme')
 //const salasRoutes   = require('./routes_sala')
 //const sessoesRoutes = require ('./routes_sessao')
+const reservaRoutes = require('./routes_reserva')
 const userSessionRoutes = require('./routes_user_session')
 const bodyParser = require('body-parser')
 
@@ -33,7 +34,7 @@ const flash = require('connect-flash')
  * @param {string} - The application's root directory
  * @return {express.Application} - The newly created application
  */
-module.exports = exports = function(repoCinema, repoFilmes, root) {
+module.exports = exports = function(repoCinema, repoFilmes,repoReserva, root) {
     
     const app = express()
     const path = require('path')
@@ -92,10 +93,11 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
     app.use(passport.initialize())
     app.use(passport.session())
 
-
-    app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express))
+ app.use('/OTRA/Reservas',reservaRoutes(repoReserva,express,signInRoutes))
+    app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express,signInRoutes))
     app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express,signInRoutes))
     app.use('/OTRA',userSessionRoutes)
+
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
@@ -103,7 +105,9 @@ module.exports = exports = function(repoCinema, repoFilmes, root) {
         res.render('home.hbs', { menuState: { home: "active", signInRoutes, user: req.user } })
     })
     
-    app.get('/OTRA/cinema/new.hbs', (req, res) => { res.render('cinemaNew.hbs')} )
+    app.get('/OTRA/cinema/new.hbs', (req, res) => {
+        res.render('cinemaNew.hbs', {menuState: { home: "active", signInRoutes, user: req.user } })
+        })
     
 
         // 26_04_2018 -  Modulos de suporte para Login

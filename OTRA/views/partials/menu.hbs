@@ -6,7 +6,7 @@
         <a class="item {{#if salas}} active {{/if}}" href="/OTRA/Salas"><img src="/OTRA/images/1454679-200.png"></i>&nbsp;Salas</a>
         <a class="item {{#if filmes}} active {{/if}}" href="/OTRA/Filmes"><img src="/OTRA/images/466321-200.png"></i>&nbsp;Filmes</a>
         <a class="item {{#if sessoes}} active {{/if}}" href="/OTRA/Sessoes"><img src="/OTRA/images/128002-200.png"></i>&nbsp;&nbsp;Sessoes</a>
-        <a class="item {{#if reservas}} active {{/if}}" href="/OTRA/Reservas"><img src="/OTRA/images/467941-200.png"></i>&nbsp;Reservas</a>
+    {{#if user}}{{else}} <a class="item   {{#if reserva}}active {{/if}} " href="/OTRA/Reservas"><img src="/OTRA/images/467941-200.png"></i>&nbsp;Reservas</a>{{/if}}
 
 
 

@@ -27,7 +27,7 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
             if (err) throw err
             res.format({
                 html: () => res.render('cinemas.hbs', {
-                    menuState: { home: "active", signInRoutes, user: req.user },
+                    menuState: { cinema: "active", signInRoutes, user: req.user },
                   cinemas: data
                 }),
                 json: () => res.json(data)
