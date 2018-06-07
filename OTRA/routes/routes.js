@@ -19,7 +19,7 @@ const filmesRoutes  = require('./routes_filme')
 const reservaRoutes = require('./routes_reserva')
 const userSessionRoutes = require('./routes_user_session')
 const bodyParser = require('body-parser')
-
+const sessionRoutes  = require('./routes_sessao')
 const userService=require('../services/userService')
 
 const passport = require('passport')
@@ -34,7 +34,7 @@ const flash = require('connect-flash')
  * @param {string} - The application's root directory
  * @return {express.Application} - The newly created application
  */
-module.exports = exports = function(repoCinema, repoFilmes,repoReserva, root) {
+module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserva, root) {
     
     const app = express()
     const path = require('path')
@@ -93,11 +93,11 @@ module.exports = exports = function(repoCinema, repoFilmes,repoReserva, root) {
     app.use(passport.initialize())
     app.use(passport.session())
 
- app.use('/OTRA/Reservas',reservaRoutes(repoReserva,express,signInRoutes))
+    app.use('/OTRA/Reservas',reservaRoutes(repoReserva,express,signInRoutes))
     app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express,signInRoutes))
     app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express,signInRoutes))
     app.use('/OTRA',userSessionRoutes)
-
+    app.use('/OTRA/Sessoes',sessionRoutes(repoSessao,express,signInRoutes))
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
