@@ -15,6 +15,7 @@ function main(port) {
     const repoFilmes = require('./repo/filmes_repo').createRepository() 
     const repoReserva= require ('./repo/reserva_repo').createRepository()
     const repoSessao= require ('./repo/sessao_repo').createRepository()
+    const repoSalas= require ('./repo/salas_repo').createRepository()
     const server = app(repoCinema, repoFilmes,repoSessao,repoReserva, __dirname)
     server.listen(Number(port), () => console.log(`Server is listening on  http://localhost:${port}/OTRA/`))
 }
