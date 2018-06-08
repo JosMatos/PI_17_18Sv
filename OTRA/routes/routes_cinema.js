@@ -87,17 +87,18 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
     })
 
     // Redirect para a pagina principal...
-    router.put('/:id', (req, res, next ) => {
-      cinemasRepository.removeFavourite(data, (removeres, err) => {
-        if (err) throw err
+    router.post('/:id', (req, res, next ) => {
+        console.log(`Servicing ${req.method} ${req.originalUrl}`)
+        res.redirect(303, `${req.baseUrl}`)
 
-        res.redirect(303, `${req.originalUrl}`)
 
-        // Afecta a Sala passada por parametro ao Cinema com o Id passado
 
-      })
+    // Afecta a Sala passada por parametro ao Cinema com o Id passado
+
 
     })
+
+
 
 
   

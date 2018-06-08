@@ -47,7 +47,7 @@ function createRepository() {
    const getCinema= (cinemaid, cb) => {
 
 
-    const path = cinemasdb+cinemaid.toString().toUpperCase()
+    const path = cinemasdb+cinemaid.toUpperCase()
     //const filme = getFilme(filmeId)
     http.get(path,{json: true}, (err,res,data) =>{
 
@@ -95,7 +95,8 @@ function createRepository() {
 
 
 
-            const path = cinemasdb+cinemaid
+            const path = cinemasdb+cinemaid.toString().toUpperCase()
+
             //const filme = getFilme(filmeId)
             http.get(path,{json: true}, (err,res,data) =>{
 
@@ -123,7 +124,8 @@ function createRepository() {
          */
         updateCinema: (cinema, cb) => {
 
-          const path =cinemasdb+cinema.name+'_'+cinema.cidade_localizacao
+          const path =cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
+
           const options = {
             method: "PUT",
             headers: { "Content-Type": "application/json"},
