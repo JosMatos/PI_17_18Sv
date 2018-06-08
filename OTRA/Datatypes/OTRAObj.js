@@ -32,8 +32,8 @@ module.exports.Sessao = Sessao
 function Cinema(id, name, cidade_localizacao, nrsalas) {
     if (!(this instanceof Cinema)) return { id, name, cidade_localizacao ,nrsalas}
     this.id = id
-    this.name = name.toUpperCase()
-    this.cidade_localizacao = cidade_localizacao.toUpperCase()
+    this.name = name
+    this.cidade_localizacao = cidade_localizacao
     this.salas =[]
     this.nrsalas=nrsalas
 
@@ -58,7 +58,7 @@ function MovieSearchItemDto(obj) {
 
 
 function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila) {
-  if (!(this instanceof Sala)) return { id_sala, nome_sala, nr_filas, nr_lugar_fila }
+
   this.id_sala = id_sala
   this.nome_sala = nome_sala.toUpperCase()
   this.nr_filas = nr_filas

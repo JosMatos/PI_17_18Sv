@@ -90,7 +90,8 @@ function createRepository() {
                      //const filme = getFilme(filmeId)
           http.get(path,{json: true}, (err,res,data) =>{
 
-                       if(data.error) return cb(null,data.error)
+                       if(data.error)
+                         return cb(null,data.error)
                       cb( data,null)
                      })  },
 
@@ -106,7 +107,7 @@ function createRepository() {
 
       getallFavourites : (cb)=>{
         let path = SESSION_MOVIES + '_all_docs'
-        request(path, (err, res,body) => {
+        http.get(path, (err, res,body) => {
           if (err) return cb(err)
 
           cb(null, body)

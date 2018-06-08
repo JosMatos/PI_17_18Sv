@@ -20,12 +20,21 @@
                         {{#if cidade_localizacao}}<div class="description">{{cidade_localizacao}}</div>{{/if}}
                         {{#if nrsalas}}<div class="description">Total de Salas : {{nrsalas}} </div>{{/if}}
                     </div>
+                     {{#if ../menuState.user}}
+                     <div class="six wide column">
+                     <div class="ui right  button" method="POST" action="{{id}}">
+                         <input type="hidden" value = "{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"  >
+                         <input type="hidden" value = "{{name}}" id="name" name="name"  >
+                         <button class="ui button" type="submit"> <i class="minus icon"></i> Remover</button>
+                     </div>
+                     </div>
+                  {{/if}}
               <!--      <div class="six wide column">
                       <div class="ui right checkbox">
                         <input type="checkbox" name="chkCinema">
                         <label>Selecionar</label>
                       </div>-->
-                    </div>
+                    </divclass>
                 </div>
           {{/each}}
       </div>
@@ -35,10 +44,11 @@
             <i class="check icon"></i>Selecionar</button>      
       </div>-->
 {{#if menuState.user}}
-      <div class="ui right floated basic blue button" data-tooltip="Registar Cinema" data-position="left center">
+      <div class="ui right floated   button" data-tooltip="Registar Cinema" data-position="left center">
         <a href="/OTRA/cinema/new.hbs"><i class="plus icon"></i> Criar </a>
       </div>
 {{/if}}
+
     </div>
   </body>
 </html>

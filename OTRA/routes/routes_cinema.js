@@ -23,8 +23,9 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
 
     router.get('/', (req, res) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        cinemasRepository.getCinemas((err, data) => {
+        cinemasRepository.getallCinemas((err, data)=> {
             if (err) throw err
+          const x=data;
             res.format({
                 html: () => res.render('cinemas.hbs', {
                     menuState: { cinema: "active", signInRoutes, user: req.user },
@@ -33,7 +34,8 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
                 json: () => res.json(data)
             })
            
-        })
+        }
+        )
     })
 
     router.post('/', (req, res) => {
@@ -45,11 +47,11 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
             return res.sendStatus(400)
 
         if (!info.id)
-            info.id = cinemasRepository.getMaxId() + 1 ;
+            info.id =info.name+'_'+info.cidade_localizacao ;
 
         const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao,info.nrsalas)
       
-        cinemasRepository.updateCinema(new_cinema, (err) => {
+        cinemasRepository.updateCinema(new_cinema, (msg,err) => {
             if (err) throw err
             res.redirect(303, `${req.originalUrl}/${info.id}`)
         })
@@ -72,7 +74,8 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
     // Retorna info do cinema com o id, passado o Id do cinema...
     router.get('/:id', (req, res, next ) => {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        cinemasRepository.getCinema(req.params.id,(err, data) => {
+        let id=req.params.id
+        cinemasRepository.getCinema(id,(data,err) => {
             if (err) throw err
             res.format({
               html: () => res.render('cinema.hbs', {
@@ -84,16 +87,19 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
     })
 
     // Redirect para a pagina principal...
-    router.post('/:id', (req, res, next ) => {
-        console.log(`Servicing ${req.method} ${req.originalUrl}`)
-        res.redirect(303, `${req.baseUrl}`)
-      
-        
+    router.put('/:id', (req, res, next ) => {
+      cinemasRepository.removeFavourite(data, (removeres, err) => {
+        if (err) throw err
 
-    // Afecta a Sala passada por parametro ao Cinema com o Id passado    
+        res.redirect(303, `${req.originalUrl}`)
 
+        // Afecta a Sala passada por parametro ao Cinema com o Id passado
+
+      })
 
     })
+
+
   
     return router
 }

@@ -16,14 +16,17 @@
         </div>
     <div class="{{#unless cinema}} required {{/unless}} field">
         <label>Numero de salas</label>
-        <input type="number" name="nrsalas"
-            {{#if cinema}} value="{{cinema.nrsalas}}"
-            {{else}} placeholder="Numero de Salas" {{/if}}
+
+            {{#if cinema}} <input readonly type="number" name="nrsalas" value="{{cinema.nrsalas}}"
+            {{else}}<input type="number" name="nrsalas" placeholder="Numero de Salas" {{/if}}
         />
     </div>
         {{#if cinema}}
             <button class="ui button" type="submit"> <i class="backward icon"></i>Voltar</button>
+
         {{else}}
+            <input type="hidden" value = "{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"  >
+            <input type="hidden" value = "{{name}}" id="name" name="name"  >
             <button class="ui button" type="submit"> <i class="plus icon"></i> Gravar</button>
         {{/if}}
 

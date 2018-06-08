@@ -7,7 +7,7 @@
  */
 
 module.exports.createRepository = createRepository
-
+const http = require('request')
 /**
  * Module dependencies.
  * @private
@@ -36,14 +36,26 @@ function createRepository() {
      const cinemas = new Map()
      const salas = new Map()
      const sessoes = new Map()
-
+  const cinemasdb = 'http://127.0.0.1:5984/cinemas/'
     
-     const getCinema = (cinemaId) => {
+   /*  const getCinema = (cinemaId) => {
         const cinema = cinemas.get(cinemaId)
         if (!cinema)
             return new model.Cinema(cinemaId, 'UNKNOWN', 'UNKNOW')
         return  cinema;   
-        }
+        }*/
+   const getCinema= (cinemaid, cb) => {
+
+
+    const path = cinemasdb+cinemaid.toString().toUpperCase()
+    //const filme = getFilme(filmeId)
+    http.get(path,{json: true}, (err,res,data) =>{
+
+      if(data.error)
+        return cb(null,data.error)
+      cb( data,null)
+    })
+  }
 
      return {
 
@@ -79,8 +91,22 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getCinema: (cinemaId, cb) => {
-            const cinema = getCinema(Number(cinemaId))
+        getCinema: (cinemaid, cb) => {
+
+
+
+            const path = cinemasdb+cinemaid
+            //const filme = getFilme(filmeId)
+            http.get(path,{json: true}, (err,res,data) =>{
+
+              if(data.error)
+                return cb(null,data.error)
+              cb( data,null)
+            })
+        },
+
+
+           /* const cinema = getCinema(Number(cinemaId))
             cb(null, cinema ? cinema.cinemaData : cinema)
         },
        getSalas: (cb) => {
@@ -88,7 +114,7 @@ function createRepository() {
            (salaId) => salas.get(salaId).salasData
          )
          cb(null, salasData)
-       },
+       },*/
         /**
          * Updates the given cinema information.
          * @param   {Cinema} cinema - The cinema information to be updated.
@@ -96,7 +122,59 @@ function createRepository() {
          * @memberof CinemasRepo# 
          */
         updateCinema: (cinema, cb) => {
-            let existingCinema = cinemas.get(Number(cinema.id))
+
+          const path =cinemasdb+cinema.name+'_'+cinema.cidade_localizacao
+          const options = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(cinema)
+          }
+          http(path, options, (err, res, body) => {
+            if(err) return cb(err)
+            cb(res,null)
+          })
+
+        },
+
+
+       removeCinema: (cinemaid,cb)=> {
+
+         const path = cinemasdb + cinema.name + '?id=' +cinemaid
+         const options = {
+           method: "DELETE",
+           headers: {"Content-Type": "application/json"},
+           body: JSON.stringify(cinema)
+         }
+         http(path, options, (err, res, body) => {
+           if (err) return cb(err)
+           cb(body, null)
+         })
+       },
+       getallCinemas : (cb)=>{
+         let path = cinemasdb + '_all_docs'
+         http.get(path, (err, res,allcinemas) => {
+           if (err) return cb(err)
+          let cinemasfull=[]
+         let index =0
+          allcinemas=JSON.parse(allcinemas)
+          allcinemas.rows.forEach(obj=>{
+            let id =obj.id
+            getCinema(id,(cinema,err)=>{
+              if (err) return cb(err)
+              if(cinema)
+                cinemasfull.push(cinema)
+              if (++index==allcinemas.total_rows){
+                cb(null,cinemasfull)
+              }
+            })
+          })
+
+         })
+
+       },
+
+
+          /*  let existingCinema = cinemas.get(Number(cinema.id))
             
             // se não existe cinema crio a nova entidade Cinema
             if (!existingCinema) {
@@ -108,8 +186,8 @@ function createRepository() {
             existingCinema.cinemaData.name = cinema.name
             existingCinema.cinemaData.cidade_localizacao= cinema.cidade_localizacao
             cinemas.set(cinema.id, existingCinema)
-            cb()
-        },
+            cb()*/
+
 
         /** 
          * Gets the list of Movie Room from Cinema.
@@ -147,9 +225,9 @@ function createRepository() {
          * @param   {readCallback} cb - Completion callback.
          * @memberof CinemasRepo#
          */
-        getMaxId: () => {
+       /* getMaxId: () => {
             return cinemas.size
-        }
+        }*/
 
        
     }
