@@ -83,7 +83,12 @@ function createRepository() {
             const cinema = getCinema(Number(cinemaId))
             cb(null, cinema ? cinema.cinemaData : cinema)
         },
-
+       getSalas: (cb) => {
+         const salasData = Array.from(salas.keys()).map(
+           (salaId) => salas.get(salaId).salasData
+         )
+         cb(null, salasData)
+       },
         /**
          * Updates the given cinema information.
          * @param   {Cinema} cinema - The cinema information to be updated.
@@ -96,7 +101,7 @@ function createRepository() {
             // se não existe cinema crio a nova entidade Cinema
             if (!existingCinema) {
                 existingCinema = {
-                    cinemaData: new model.Cinema(cinema.id, cinema.name, cinema.cidade_localizacao), 
+                    cinemaData: new model.Cinema(cinema.id, cinema.name, cinema.cidade_localizacao,cinema.nrsalas),
                     salas: new Map()
                 }
             }
@@ -117,6 +122,26 @@ function createRepository() {
             cb(null, cinemaSalas)
         },
 
+
+       updateSala: (id_cinema, sala, cb) => {
+         let existingCinema = cinemas.get(Number(id_cinema))
+         if (!existingCinema) { return }
+
+         let existingSala = existingCinema.salas.get(sala.id_sala);
+
+         // se não existe cinema crio a nova entidade Cinema
+         if (!existingSala) {
+           existingSala = {
+             salaData: new model.Sala(sala.id_sala, sala.nome_sala, sala.nr_filas, sala.nr_lugar_fila)
+           }
+         }
+
+         existingSala.salaData.nome_sala = sala.nome_sala
+         existingSala.salaData.nr_filas =  sala.nr_filas
+         existingSala.salaData.nr_lugar_fila = sala.nr_lugar_fila
+         existingCinema.salas.set(sala.id_sala,existingSala.salaData);
+         cb()
+       },
         /**
          * Gets the Max Cinema ID present in Cinema Repo.
          * @param   {readCallback} cb - Completion callback.
@@ -125,6 +150,7 @@ function createRepository() {
         getMaxId: () => {
             return cinemas.size
         }
+
        
     }
 }

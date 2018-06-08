@@ -41,13 +41,13 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
         
         const info = req.body
         // Validar a informação recebida, se vem toda
-        if (!info || !info.name || !info.cidade_localizacao)
+        if (!info || !info.name || !info.cidade_localizacao,!info.nrsalas)
             return res.sendStatus(400)
 
         if (!info.id)
             info.id = cinemasRepository.getMaxId() + 1 ;
 
-        const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao)
+        const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao,info.nrsalas)
       
         cinemasRepository.updateCinema(new_cinema, (err) => {
             if (err) throw err
@@ -75,7 +75,9 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
         cinemasRepository.getCinema(req.params.id,(err, data) => {
             if (err) throw err
             res.format({
-              html: () => res.render('cinema.hbs', {cinemaInfo: data }),
+              html: () => res.render('cinema.hbs', {
+                menuState: { cinema: "active", signInRoutes, user: req.user },
+                cinemaInfo: data }),
               json: () => res.json(data)
             })
         })
