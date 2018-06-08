@@ -37,13 +37,25 @@ function createRepository() {
   const SESSION_MOVIES = 'http://127.0.0.1:5984/sessionmovies/'
      const filmes = new Map()
     
-     const getFilme = (id) => {
+    /* const getFilme = (id) => {
         const filme = filmes.get(id)
         //if (!filme)
           //  return new model.MovieDetailDto(obj)
 
         return  filme;
-        }
+        }*/
+  const getFilme= (filmeid, cb) => {
+
+
+    const path = SESSION_MOVIES+filmeid.toUpperCase()
+    //const filme = getFilme(filmeId)
+    http.get(path,{json: true}, (err,res,data) =>{
+
+      if(data.error)
+        return cb(null,data.error)
+      cb( data,null)
+    })
+  }
 /*
     
 
@@ -105,16 +117,30 @@ function createRepository() {
       */
 
 
-      getallFavourites : (cb)=>{
-        let path = SESSION_MOVIES + '_all_docs'
-        http.get(path, (err, res,body) => {
-          if (err) return cb(err)
-
-          cb(null, body)
-
+    getallFavourites : (cb)=>{
+      let path = SESSION_MOVIES+ '_all_docs'
+      http.get(path, (err, res,allmovies) => {
+        if (err) return cb(err)
+        let moviesfull=[]
+        let index =0
+        allmovies=JSON.parse(allmovies)
+        if (allmovies.rows.length==0)
+          cb(null,moviesfull)
+        allmovies.rows.forEach(obj=>{
+          let id =obj.id
+          getCinema(id,(movie,err)=>{
+            if (err) return cb(err)
+            if(movie)
+              moviesfull.push(movie)
+            if (++index==allmovies.total_rows){
+              cb(null,moviesfull)
+            }
+          })
         })
 
-      },
+      })
+
+    },
 
 
 
