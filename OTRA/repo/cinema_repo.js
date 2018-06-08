@@ -159,6 +159,8 @@ function createRepository() {
           let cinemasfull=[]
          let index =0
           allcinemas=JSON.parse(allcinemas)
+           if (allcinemas.rows.length==0)
+             cb(null,cinemasfull)
           allcinemas.rows.forEach(obj=>{
             let id =obj.id
             getCinema(id,(cinema,err)=>{
