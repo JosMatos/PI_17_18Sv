@@ -112,7 +112,7 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
     app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express,signInRoutes))
     app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express,signInRoutes))
     app.use('/OTRA',userSessionRoutes)
-    app.use('/OTRA/Sessoes',sessionRoutes(repoSessao,express,signInRoutes))
+    app.use('/OTRA/sessoes',sessionRoutes(repoSessao,express,signInRoutes))
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     

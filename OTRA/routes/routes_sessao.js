@@ -18,5 +18,11 @@ module.exports = function(repoSessao, express ,signInRoutes) {
     })
   })
 
+  router.get('/sessao', (req, res) => {
+    console.log(`Servicing ${req.method} ${req.originalUrl}`)
+      cinemasRepository.getallCinemas((err, cinemas)=> {
+    })
+  })
+
   return router
 }

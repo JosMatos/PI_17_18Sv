@@ -29,17 +29,21 @@ module.exports.Sessao = Sessao
  * @classdesc Data type that represents cinemas.
  * @api public
  */
-function Cinema(id, name, cidade_localizacao, nrsalas) {
+function Cinema(id, name, cidade_localizacao, nrsalas,salas) {
     if (!(this instanceof Cinema)) return { id, name, cidade_localizacao ,nrsalas}
     this.id = id
     this.name = name
     this.cidade_localizacao = cidade_localizacao
+  if (salas==undefined){
     this.salas =[]
+    for (var i = 0; i < i.nrsalas; i++) {
+      this.salas.push (new Sala(i,i,30,30,[]))
+    }
+  }
+    else this.salas=salas
     this.nrsalas=nrsalas
 
-  for (var i = 0; i < i.nrsalas; i++) {
-    this.salas.push (new Sala(i,i,30,30))
-  }
+
 }
 function MovieSearchItemDto(obj) {
   this.title = obj.title
@@ -57,15 +61,20 @@ function MovieSearchItemDto(obj) {
 }
 
 
-function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila) {
+function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
 
   this.id_sala = id_sala
   this.nome_sala = nome_sala.toUpperCase()
   this.nr_filas = nr_filas
   this.nr_lugar_fila = nr_lugar_fila
+  this.isocupied=isocupied
 }
 
-
+function  sessiontimespane(date,starttime,endtime) {
+  this.date=date
+  this.starttime=starttime
+  this.endtime=endtime
+}
 function MovieSearchDto(obj) {
   this.results = []
   this.currPage = obj.page
