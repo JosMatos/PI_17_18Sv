@@ -44,7 +44,7 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
         
         
         // Se for para Remover um Cinema !!!
-        if ( typeof info.rem_id_cinema !== 'undefined' && info.rem_id_cinema 
+        if ( typeof info.rem_id_cinema !== 'undefined' && info.rem_id_cinema
            && typeof info.rem_rev_cinema !== 'undefined' && info.rem_rev_cinema )
            {
                 cinemasRepository.removeCinema(info.rem_id_cinema, info.rem_rev_cinema, (msg,err) => {

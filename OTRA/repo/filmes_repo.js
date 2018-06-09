@@ -37,18 +37,15 @@ function createRepository() {
   const SESSION_MOVIES = 'http://127.0.0.1:5984/sessionmovies/'
      const filmes = new Map()
 
-  const getFilme= (filmeid, cb) => {
+     const getFilme = (id,cb) => {
+       const path = SESSION_MOVIES+cinemaid.toUpperCase()
+       http.get(path,{json: true}, (err,res,data) =>{
 
-
-    const path =SESSION_MOVIES+filmeid.toUpperCase()
-    //const filme = getFilme(filmeId)
-    http.get(path,{json: true}, (err,res,data) =>{
-
-      if(data.error)
-        return cb(null,data.error)
-      cb( new model.MovieDetailDto(data),null)
-    })
-  }
+         if(data.error)
+           return cb(null,data.error)
+         cb( data,null)
+       })
+        }
 /*
     
 

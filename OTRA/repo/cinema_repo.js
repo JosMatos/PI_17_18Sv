@@ -53,7 +53,7 @@ function createRepository() {
 
       if(data.error)
         return cb(null,data.error)
-      cb( new model.Cinema(data.id,data.name,data.nrsalas,data.salas),null)
+      cb( data,null)
     })
   }
 

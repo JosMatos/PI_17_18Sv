@@ -59,7 +59,18 @@ function MovieSearchItemDto(obj) {
   }
 
 }
+function Session (moviename,movieid,cinemaname,idsala,timespan) {
+  this.id=moviename+cinemaname+idsala
+  this.moviename=moviename
+  this.movieId=movieid
+  this.cinemaname=cinemaname,
+    this.id_sala=idsala
+  this.ttimespan=[]
+    timespan.forEach((element)=> {
+      timespan.push(new sessiontimespane(element))
+    })
 
+}
 
 function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
 
@@ -70,7 +81,7 @@ function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
   this.isocupied=isocupied
 }
 
-function  sessiontimespane(date,starttime,endtime) {
+function  sessiontimespane(obj) {
   this.date=date
   this.starttime=starttime
   this.endtime=endtime

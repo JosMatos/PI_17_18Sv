@@ -6,7 +6,7 @@ const db = require('../services/AppService')
 
 
 
-module.exports = function(repoSessao, express ,signInRoutes) {
+module.exports = function(repoSessao,cinemasRepository,filmeRepository, express ,signInRoutes) {
 
   const router = express.Router()
 
@@ -18,9 +18,12 @@ module.exports = function(repoSessao, express ,signInRoutes) {
     })
   })
 
-  router.get('/sessao', (req, res) => {
+  router.get('/create', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
       cinemasRepository.getallCinemas((err, cinemas)=> {
+      filmeRepository.getallsessionmovies((err,movies)=>{
+
+      })
     })
   })
 

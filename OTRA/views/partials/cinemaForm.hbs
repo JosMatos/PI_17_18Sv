@@ -4,21 +4,21 @@
             <label>Nome</label>
             <input type="text" name="name" 
                 {{#if cinema}} value="{{cinema.name}}" readonly
-                {{else}} placeholder="nome do Cinema" {{/if}}
+                {{else}} placeholder="nome do Cinema" required{{/if}}
             />
         </div>
         <div class="{{#unless cinema}} required {{/unless}} field">
             <label>Cidade Localização</label>
             <input type="text" name="cidade_localizacao" 
                 {{#if cinema}} value="{{cinema.cidade_localizacao}}"
-                {{else}} placeholder="Cidade onde está localizado o cinema" {{/if}}
+                {{else}} placeholder="Cidade onde está localizado o cinema" required{{/if}}
             />
         </div>
     <div class="{{#unless cinema}} required {{/unless}} field">
         <label>Numero de salas</label>
 
             {{#if cinema}} <input readonly type="number" name="nrsalas" value="{{cinema.nrsalas}}"
-            {{else}}<input type="number" name="nrsalas" placeholder="Numero de Salas" {{/if}}
+            {{else}}<input type="number" name="nrsalas" placeholder="Numero de Salas" required{{/if}}
         />
     </div>
         {{#if cinema}}
