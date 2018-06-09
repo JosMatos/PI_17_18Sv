@@ -5,8 +5,15 @@
 </head>
 <body>
 {{> menu this.menuState }}
+<div class="ui segment">
+    <h4 class="ui dividing header">Sessões disponiveis</h4>
+
+
+    {{#if menuState.user}}
 <div class="ui container">
-    <div class="ui right floated button" data-tooltip="Registar Cinema" data-position="left center">
+    <div class="ui right floated button" data-tooltip="Registar Sessão" data-position="left center">
         <a href="/OTRA/sessoes/create"><i class="plus icon"></i> Criar </a>
     </div>
+
 </div>
+        {{/if}}

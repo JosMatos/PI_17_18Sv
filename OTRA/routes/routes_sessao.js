@@ -14,7 +14,7 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
   router.get('/', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
     res.format({
-      html: () => res.render('reservas.hbs',{ menuState: { sessoes: "active", signInRoutes, user: req.user } })
+      html: () => res.render('sessao.hbs',{ menuState: { sessoes: "active", signInRoutes, user: req.user } })
     })
   })
 
@@ -22,6 +22,15 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
       cinemasRepository.getallCinemas((err, cinemas)=> {
       filmeRepository.getallsessionmovies((err,movies)=>{
+        res.format({
+          html: () => res.render('SessaoCreate.hbs',{
+            menuState: {
+            sessoes: "active", signInRoutes,
+              user: req.user
+            },
+            cinemas:cinemas,
+            movies:movies })
+        })
 
       })
     })

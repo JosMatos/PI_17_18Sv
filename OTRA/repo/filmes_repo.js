@@ -38,7 +38,7 @@ function createRepository() {
      const filmes = new Map()
 
      const getFilme = (id,cb) => {
-       const path = SESSION_MOVIES+cinemaid.toUpperCase()
+       const path = SESSION_MOVIES+id.toUpperCase()
        http.get(path,{json: true}, (err,res,data) =>{
 
          if(data.error)
@@ -122,7 +122,7 @@ function createRepository() {
           let id = obj.id
           getFilme(id,(movie,err)=>{
             if (err) return cb(err)
-            if (cinema)
+            if (movie)
               moviesfull.push(movie)
             if (++index==allmovies.total_rows)
             {
