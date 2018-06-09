@@ -26,7 +26,7 @@ const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
-
+const hbs=require('hbs')
 
 /**
  * Creates an express application instance and initiates it with the set of supported routes.
@@ -42,7 +42,22 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
     const methodOverride = require('method-override')
 
 
-    
+  hbs.registerHelper('ifBtnF',(obj,option)=>{
+    var nextbutton
+    if(obj.data.currPage < obj.data.numPages)
+      return nextbutton=' <button type="button"' + 'onclick='+ '"'+'window.location.href= '+"'"+'/OTRA/filmes/search?movieTitle='+obj.data.query.toString() + '&page='+obj.data.next.toString()+"'" +'"' +'>Next Page</button>'
+    else
+      return nextbutton= ' <button type="button"  disabled>Next Page</button>'
+  })
+
+  hbs.registerHelper('ifBtnB',(obj,option)=>{
+    var prevbutton
+    if(obj.data.currPage > 1)
+      return prevbutton=' <button type="button"' + 'onclick='+ '"'+'window.location.href= '+"'"+'/OTRA/filmes/search?movieTitle='+obj.data.query.toString() + '&page='+obj.data.prev.toString()+"'" +'"' +'>Previous Page</button>'
+    else
+      return prevbutton=' <button type="button"  disabled>Previous Page</button>'
+
+  })
     // 26_04_2018 -  Modulos de suporte para Login
     const signInRoutes = {
         login: '/OTRA/login',

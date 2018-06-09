@@ -6,42 +6,54 @@
 
 
 
-
+{{> menu this.menuState }}
 
 <!--
+ <table  class="table bord" style="margin-top: 20px; text-align: center; width: 100px;" align="center">
 <body style="background-image:url(/OTRA/images/BackgroundFilmes.jpg)">
 -->
 <body style="background-image:url(http://thewaycom.com.br/novosite/wp-content/uploads/2016/12/audiovisual.jpg)">
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
 
-{{> menu this.menuState }}
+
+    }
+    .grid-item {
+
+
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+    }
+</style>
+{{#ifBtnB this}}
+{{/ifBtnB}}
+{{#ifBtnF this}}
+{{/ifBtnF}}
     <h1 style="color: white"><b>Search Results</b></h1>
- <table  class="table bord" style="margin-top: 20px; text-align: center; width: 100px;" align="center">-->
-           {{#each data.results}}
-            <td>
-           <!-- <table  class="table borde" style="margin-top: 20px; text-align: center; width: 100px;" align="center" border="">-->
-            <!--<tr>-->
 
-                <li>
-                <tr>
+     <form class="grid container" method="GET" action='movies/{{id}}'>
+         <div class="grid-container">
+     {{#each data.results}}
+         <div class="grid-item">
+                    <div>
+                    <a href = 'movies/{{id}}' >{{title }}</a>
+                    </div>
+             <p></p>
+                    <div>
+                    <a href = 'movies/{{id}}'><img src='{{img}}'width='250px' align="bottom"></a>
+                    </div>
 
-                            <a href = 'movies/{{id}}' >
-                           {{title }}
-                            </a>
 
-
-                    <a href = 'movies/{{id}}'>
-                            <img src='{{img}}'width='250px' align="bottom">
-                    </a>
-                       <!-- </tr>-->
-
-                </li>
-                </tr>
-            <!--</table>-->
-                </td>
-
+     </div>
             {{/each}}
+             </div>
+         <form>
 
-   </table>
-
-
+             {{#ifBtnB this}}
+             {{/ifBtnB}}
+             {{#ifBtnF this}}
+             {{/ifBtnF}}
 </body>

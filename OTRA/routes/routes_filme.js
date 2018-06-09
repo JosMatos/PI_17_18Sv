@@ -19,6 +19,8 @@ const db = require('../services/AppService')
 
 module.exports = function(filmesRepository, express ,signInRoutes) {
 
+
+
   const router = express.Router()
 
 
@@ -67,10 +69,10 @@ module.exports = function(filmesRepository, express ,signInRoutes) {
   /*
 Integração Tiago  - 2018_04_22
   */
-  router.post('/search', (req, res, next) => {
+  router.get('/search', (req, res, next) => {
     if(req.query.page == undefined)
       req.query.page = 1
-    db.movieNameQuery(req.body.movieTitle,req.query.page,(err, data) => {
+    db.movieNameQuery(req.query.movieTitle,req.query.page,(err, data) => {
       if(err) return next(err)
       res.render('searchView', { menuState: { filmes: "active", signInRoutes, user: req.user },
         data :data})

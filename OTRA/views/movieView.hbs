@@ -4,44 +4,49 @@
     {{> head}}
 </head>
 
-
-
-
-
-<body style="background-image:url(http://thewaycom.com.br/novosite/wp-content/uploads/2016/12/audiovisual.jpg)">
-<!--<body style="background-image:url(/OTRA/images/BackgroundFilmes.jpg) ">-->
-<body bgcolor="#E6E6FA">
-
-
 {{> menu this.menuState }}
-<div class="">
-    <z  style="color: white;" > <div  style="text-align: center;">
-        {{#if menuState.user}}
-        {{#if data.isfav}}
-            <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
-                <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
-                <input type="hidden" value = false id="toadd" name="toadd"  >
-                <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
-                    <button class="ui button" type="submit" > <i class="minus icon"> </i> Indisponibilizar para Sessão</button>
-                </div>  </form>
-        {{else}}
+<!--<body style="background-image:url(http://thewaycom.com.br/novosite/wp-content/uploads/2016/12/audiovisual.jpg)" >-->
+<body style="background-image:url(/OTRA/images/BackgroundFilmes.jpg) ">
 
-            <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
-                <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
-                <input type="hidden" value = true id="toadd" name="toadd"  >
-            <div class="ui right floated basic blue button"  data-tooltip="Registar Filme" data-position="left top" >
 
-            <button class="ui button" type="submit"> <i class="plus icon"> </i> Disponibilizar para Sessão</button>
-        </div>  </form>
-        {{/if}}
+
+
+{{#if menuState.user}}
+
+    {{#if data.isfav}}
+        <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
+            <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
+            <input type="hidden" value = false id="toadd" name="toadd"  >
+            <div class="ui right floated  button"  data-tooltip="Registar Filme" data-position="left top" >
+
+                <button class="ui button" type="submit" > <i class="minus icon"> </i> Indisponibilizar para Sessão</button>
+            </div>  </form>
+    {{else}}
+
+        <form action="/OTRA/filmes/movies/{{data.id}}" method="POST">
+            <input type="hidden" value = "{{data.id}}" id="movieId" name="movieId"  >
+            <input type="hidden" value = true id="toadd" name="toadd"  >
+            <div class="ui right floated button"  data-tooltip="Registar Filme" data-position="left top" >
+
+                <button class="ui button" type="submit"> <i class="plus icon"> </i> Disponibilizar para Sessão</button>
+            </div>
+
+        </form>
+    {{/if}}
 {{/if}}
-            <h1><b>{{data.originalTitle}}</b></h1>
 
+<div class="">
+    <ul  style="color: white;" >
+        <div  style="text-align: center;">
+                <h1><b>{{originalTitle}}</b></h1>
+
+            <h1><b>{{data.originalTitle}}</b></h1>
+        </td>
             <td><img width='250px' src='{{data.img}}'/></td>
             <br><b>Release Date: </b>{{data.releaseDate}}
             </br>
-        </div>
+
 
         <br><b>Overview: </b>{{data.overView}}</br>
 
@@ -54,7 +59,7 @@
             {{#each data.cast.cast}}
                 <tr>
                     <td>
-                        <a style="color: white;" href = '/actors/{{id}}'>
+                        <a style="color: white;" >
                             {{name}}
                         </a>
                     <td style="color: white;">{{character}}</td>
@@ -74,8 +79,9 @@
 
                 </form>
             </div>
-        </div>
+        </div></div>
+    </ul>
 
 
-    </z>
 </div>
+</body>
