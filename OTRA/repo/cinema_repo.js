@@ -92,9 +92,6 @@ function createRepository() {
          * @memberof CinemasRepo#
          */
         getCinema: (cinemaid, cb) => {
-
-
-
             const path = cinemasdb+cinemaid.toString().toUpperCase()
 
             //const filme = getFilme(filmeId)
@@ -124,7 +121,7 @@ function createRepository() {
          */
         updateCinema: (cinema, cb) => {
 
-          const path =cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
+          const path = cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
 
           const options = {
             method: "PUT",
@@ -137,21 +134,25 @@ function createRepository() {
           })
 
         },
+        /**
+         * Removes the given cinema.
+         * @param   {string} cinemaKey - The cinemaid to be deleted.
+         * @param   {string} cinemaRev - The Rev Number to be deleted.
+         * @param   {writeCallback} cb - Completion callback.
+         * @memberof CinemasRepo# 
+         */
+         removeCinema: (cinemaKey, cinemaRev, cb) => {
+            const path = cinemasdb + cinemaKey + '?rev=' + cinemaRev
+            const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
+            http(path, options, (err, res, body) => {
+                                                      if (err) return cb(err)
+                                                      cb(body, null)
+                                                      }
+              )
+          },
+       
 
 
-       removeCinema: (cinemaid,cb)=> {
-
-         const path = cinemasdb + cinema.name + '?id=' +cinemaid
-         const options = {
-           method: "DELETE",
-           headers: {"Content-Type": "application/json"},
-           body: JSON.stringify(cinema)
-         }
-         http(path, options, (err, res, body) => {
-           if (err) return cb(err)
-           cb(body, null)
-         })
-       },
        getallCinemas : (cb)=>{
          let path = cinemasdb + '_all_docs'
          http.get(path, (err, res,allcinemas) => {
@@ -161,22 +162,24 @@ function createRepository() {
           allcinemas=JSON.parse(allcinemas)
            if (allcinemas.rows.length==0)
              cb(null,cinemasfull)
-          allcinemas.rows.forEach(obj=>{
-            let id =obj.id
-            getCinema(id,(cinema,err)=>{
-              if (err) return cb(err)
-              if(cinema)
-                cinemasfull.push(cinema)
-              if (++index==allcinemas.total_rows){
-                cb(null,cinemasfull)
-              }
-            })
+          
+             allcinemas.rows.forEach(obj=>
+              {
+                let id = obj.id
+                getCinema(id,(cinema,err)=>{
+                    if (err) return cb(err)
+                    if (cinema) 
+                        cinemasfull.push(cinema)
+                    if (++index==allcinemas.total_rows)
+                    {
+                        cb(null,cinemasfull)
+                    }
+                })
           })
 
          })
 
        },
-
 
           /*  let existingCinema = cinemas.get(Number(cinema.id))
             

@@ -7,7 +7,6 @@
   {{> menu this.menuState }}
      <div class="ui segment">
      <h4 class="ui dividing header">Cinemas Registados</h4>
-
           {{#each cinemas}}
               <div class="ui middle aligned animated selection list container">
             <form class="ui form container" method="POST" action={{action}}></form>
@@ -20,15 +19,20 @@
                         {{#if cidade_localizacao}}<div class="description">{{cidade_localizacao}}</div>{{/if}}
                         {{#if nrsalas}}<div class="description">Total de Salas : {{nrsalas}} </div>{{/if}}
                     </div>
-                     {{#if ../menuState.user}}
+                    {{#if ../menuState.user}}
                      <div class="six wide column">
-                     <div class="ui right  button" method="POST" action="{{id}}">
-                         <input type="hidden" value = "{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"  >
-                         <input type="hidden" value = "{{name}}" id="name" name="name"  >
-                         <button class="ui button" type="submit"> <i class="minus icon"></i> Remover</button>
+                      <form method="POST" action={{action}}>   
+                        <div class="ui right button">
+                            <!--<input type="hidden" value = "{{name}}" id="name" name="name">
+                            <input type="hidden" value ="{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"> -->
+                            <input type="hidden" name="rem_id_cinema" value={{_id}}>
+                            <input type="hidden" name="rem_rev_cinema" value={{_rev}}>
+                            <button class="ui button" type="submit" method="POST" action="{{id}}"> <i class="minus icon"></i>Remover</button>
+                        </div>
+                     </form>
                      </div>
-                     </div>
-                  {{/if}}
+                    {{/if}}
+                 
               <!--      <div class="six wide column">
                       <div class="ui right checkbox">
                         <input type="checkbox" name="chkCinema">
@@ -43,11 +47,13 @@
           <button class="ui right floated basic blue button"  data-tooltip="Selecionar Cinema" type="submit"> 
             <i class="check icon"></i>Selecionar</button>      
       </div>-->
-{{#if menuState.user}}
-      <div class="ui right floated   button" data-tooltip="Registar Cinema" data-position="left center">
+     {{#if menuState.user}}
+     <div class="ui container">
+      <div class="ui right floated button" data-tooltip="Registar Cinema" data-position="left center">
         <a href="/OTRA/cinema/new.hbs"><i class="plus icon"></i> Criar </a>
       </div>
-{{/if}}
+     </div>
+     {{/if}}
 
     </div>
   </body>

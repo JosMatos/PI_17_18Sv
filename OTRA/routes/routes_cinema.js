@@ -25,7 +25,6 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
         cinemasRepository.getallCinemas((err, data)=> {
             if (err) throw err
-          const x=data;
             res.format({
                 html: () => res.render('cinemas.hbs', {
                     menuState: { cinema: "active", signInRoutes, user: req.user },
@@ -42,19 +41,35 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
         console.log(`Servicing ${req.method} ${req.originalUrl}`)
         
         const info = req.body
-        // Validar a informação recebida, se vem toda
-        if (!info || !info.name || !info.cidade_localizacao,!info.nrsalas)
-            return res.sendStatus(400)
+        
+        
+        // Se for para Remover um Cinema !!!
+        if ( typeof info.rem_id_cinema !== 'undefined' && info.rem_id_cinema 
+           && typeof info.rem_rev_cinema !== 'undefined' && info.rem_rev_cinema )
+           {
+                cinemasRepository.removeCinema(info.rem_id_cinema, info.rem_rev_cinema, (msg,err) => {
+                    if (err) throw err
+                    res.redirect(303, `${req.originalUrl}`)
+                })
+            }
+        
+        else
+        {
+            // Validar a informação recebida, se vem toda
+            if (!info || !info.name || !info.cidade_localizacao || !info.nrsalas)
+                return res.sendStatus(400)
 
-        if (!info.id)
-            info.id =info.name+'_'+info.cidade_localizacao ;
+            if (!info.id)
+                info.id = info.name+'_'+info.cidade_localizacao ;
 
-        const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao,info.nrsalas)
-      
-        cinemasRepository.updateCinema(new_cinema, (msg,err) => {
-            if (err) throw err
-            res.redirect(303, `${req.originalUrl}/${info.id}`)
-        })
+            const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao,info.nrsalas)
+        
+            cinemasRepository.updateCinema(new_cinema, (msg,err) => {
+                if (err) throw err
+                res.redirect(303, `${req.originalUrl}/${info.id}`)
+            })
+        }
+
     })
 
 
