@@ -98,10 +98,6 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
 
     app.use(methodOverride('_method'))
 
-
-    // 26_04_2018 -  Modulos de suporte para Login
-
-
     app.use(cookieParser())
     app.use(session({secret: 'keyboard cat', resave: false, saveUninitialized: true }))
     app.use(expressSession);    app.use(flash())
@@ -125,10 +121,5 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
         })
     
 
-        // 26_04_2018 -  Modulos de suporte para Login
- /*   passport.serializeUser((user, done) => { done(null, user) })
-    passport.deserializeUser((id, done) => { done(null, id) })
-
-*/
-    return app
+   return app
 }

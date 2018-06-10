@@ -14,11 +14,14 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
   router.get('/', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
     res.format({
-      html: () => res.render('sessao.hbs',{ menuState: { sessoes: "active", signInRoutes, user: req.user } })
+      html: () => res.render('sessao.hbs',{ menuState: { sessoes: "active", 
+                                                         action : "Create",
+                                                         signInRoutes, 
+                                                         user: req.user } })
     })
   })
 
-  router.get('/create', (req, res) => {
+  router.get('/Create', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
       cinemasRepository.getallCinemas((err, cinemas)=> {
       filmeRepository.getallsessionmovies((err,movies)=>{
