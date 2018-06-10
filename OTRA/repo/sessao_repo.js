@@ -34,15 +34,21 @@ const model = require('../Datatypes/OTRAObj')
  */
 function createRepository() {
   const reservas = new Map()
+  const sessoesdb = 'http://127.0.0.1:5984/sessions/'
+
+  const getSession= (sessionid, cb) => {
 
 
+    const path = sessoesdb+sessionid.toUpperCase()
+    //const filme = getFilme(filmeId)
+    http.get(path,{json: true}, (err,res,data) =>{
 
-  const getReserva = (resrvaId) => {
-    const cinema = cinemas.get(resrvaId)
-    if (!cinema)
-      return new model.reserva(cinemaId, 'UNKNOWN', 'UNKNOW')
-    return  cinema;
+      if(data.error)
+        return cb(null,data.error)
+      cb( data,null)
+    })
   }
+
 
   return {
 
@@ -59,70 +65,60 @@ function createRepository() {
      */
     registerEvent: (event, cb) => { addEvent(event); cb() },
 
-    /**
-     * Gets the list of Cinemas.
-     * @param   {readCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
-    getCinemas: (cb) => {
-      const cinemasData = Array.from(cinemas.keys()).map(
-        (cinemaId) => cinemas.get(cinemaId).cinemaData
-      )
-      cb(null, cinemasData)
-    },
 
-    /**
-     * Gets the Cinema with the given identifier. Calls the read callback with the cinema
-     * instance or undefined, if the cinema was not found.
-     * @param   {string} cinemaId - The Cinema identifier.
-     * @param   {readCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
-    getCinema: (cinemaId, cb) => {
-      const cinema = getCinema(Number(cinemaId))
-      cb(null, cinema ? cinema.cinemaData : cinema)
-    },
+    insertSessao: (sessao, cb) => {
 
-    /**
-     * Updates the given cinema information.
-     * @param   {Cinema} cinema - The cinema information to be updated.
-     * @param   {writeCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
-    updateCinema: (cinema, cb) => {
-      let existingCinema = cinemas.get(Number(cinema.id))
+      const path = cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
 
-      // se não existe cinema crio a nova entidade Cinema
-      if (!existingCinema) {
-        existingCinema = {
-          cinemaData: new model.Cinema(cinema.id, cinema.name, cinema.cidade_localizacao),
-          salas: new Map()
-        }
+      const options = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(cinema)
       }
-      existingCinema.cinemaData.name = cinema.name
-      existingCinema.cinemaData.cidade_localizacao= cinema.cidade_localizacao
-      cinemas.set(cinema.id, existingCinema)
-      cb()
+      http(path, options, (err, res, body) => {
+        if(err) return cb(err)
+        cb(res,null)
+      })
+
+    },
+    removeSessao: (cinemaKey, cinemaRev, cb) => {
+      const path = cinemasdb + cinemaKey + '?rev=' + cinemaRev
+      const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
+      http(path, options, (err, res, body) => {
+          if (err) return cb(err)
+          cb(body, null)
+        }
+      )
     },
 
-    /**
-     * Gets the list of Movie Room from Cinema.
-     * @param   {readCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
 
-    getCinemaSalas: (cinemaId, cb) => {
-      const cinemaSalas = Array.from(cinemas.keys()).map((cinemaId) => getSalas(cinemaId))
-      cb(null, cinemaSalas)
-    },
 
-    /**
-     * Gets the Max Cinema ID present in Cinema Repo.
-     * @param   {readCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
-    getMaxId: () => {
-      return cinemas.size
+    getallCinemas : (cb)=>{
+      let path = cinemasdb + '_all_docs'
+      http.get(path, (err, res,allcinemas) => {
+        if (err) return cb(err)
+        let cinemasfull=[]
+        let index =0
+        allcinemas=JSON.parse(allcinemas)
+        if (allcinemas.rows.length==0)
+          cb(null,cinemasfull)
+
+        allcinemas.rows.forEach(obj=>
+        {
+          let id = obj.id
+          getCinema(id,(cinema,err)=>{
+            if (err) return cb(err)
+            if (cinema)
+              cinemasfull.push(cinema)
+            if (++index==allcinemas.total_rows)
+            {
+              cb(null,cinemasfull)
+            }
+          })
+        })
+
+      })
+
     }
 
   }

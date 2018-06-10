@@ -35,6 +35,23 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
       })
     })
   })
+router.post('/create', (req,res)=>{
+  console.log(`Servicing ${req.method} ${req.originalUrl}`)
+  const info=req.body
+const timespan=[
+  minute=info.minute,
+  hour=info.hour,
+  day=info.day,
+  month=info.month,
+  year=info.year
+]
+  const sessoe = new model.Sessao(info.moviename,info.id,info.cinemaname,1,timespan)
+    repoSessao.insertSession( sessao ,(data,err)=>{
+  if (err) throw err
+  res.redirect(303, `/OTRA/sessoes`)
+})
+})
+
 
   return router
 }

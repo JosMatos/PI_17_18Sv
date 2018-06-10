@@ -7,7 +7,8 @@
 </head>
 <body>
 {{> menu this.menuState }}
-<form action="/OTRA/sessoes" method="post">
+<form action="/OTRA/sessoes/create" method="POST">
+   <div>
     <select name="cinema">
         {{#each cinemas}}
 
@@ -15,6 +16,11 @@
 
         {{/each}}
     </select>
+   </div>
+
+
+
+   <div>
     <select name="filme">
     {{#each movies}}
 
@@ -22,9 +28,9 @@
 
     {{/each}}
     </select>
+   </div>
 
-
-
+<div>
     <select name="day">
         <option value ="1">1</option>
         <option value ="2">2</option>
@@ -75,10 +81,22 @@
 
     </select>
 
-    <select name="month">
+    <select name="year">
         <option value ="2018">2018</option>
         <option value ="2019">2019</option>
         <option value ="2020">2020</option>
     </select>
+</div>
+
+    <div>
+       hora :
+        <input type="number" name="hour" min="00" max="24" required>
+    </div>
+    <div>
+        minutos:
+        <input type="number" name="minute" min="00" max="60" required>
+    </div>
+
+
     <button class="ui button" type="submit"> <i class="plus icon"></i> Gravar</button>
 </form>

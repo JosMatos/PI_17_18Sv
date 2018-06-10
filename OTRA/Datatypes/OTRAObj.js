@@ -65,10 +65,8 @@ function Session (moviename,movieid,cinemaname,idsala,timespan) {
   this.movieId=movieid
   this.cinemaname=cinemaname,
     this.id_sala=idsala
-  this.ttimespan=[]
-    timespan.forEach((element)=> {
-      timespan.push(new sessiontimespane(element))
-    })
+  this.timespan=new sessiontimespane(timespan)
+
 
 }
 
@@ -82,9 +80,9 @@ function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
 }
 
 function  sessiontimespane(obj) {
-  this.date=date
-  this.starttime=starttime
-  this.endtime=endtime
+  this.date=obj.day+ '-' +obj.month+'-'+obj.year
+  this.starttime=obj.hour+':'+obj.minute
+
 }
 function MovieSearchDto(obj) {
   this.results = []
