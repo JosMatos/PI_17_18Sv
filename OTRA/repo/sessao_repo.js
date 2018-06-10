@@ -93,7 +93,7 @@ function createRepository() {
 
 
 
-    getallCinemas : (cb)=>{
+    getallSessions : (cb)=>{
       let path = sessoesdb + '_all_docs'
       http.get(path, (err, res,allcinemas) => {
         if (err) return cb(err)
