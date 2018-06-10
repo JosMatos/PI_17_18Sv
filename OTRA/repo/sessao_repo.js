@@ -81,8 +81,8 @@ function createRepository() {
       })
 
     },
-    removeSessao: (cinemaKey, cinemaRev, cb) => {
-      const path = sessoesdb + cinemaKey + '?rev=' + cinemaRev
+    removeSessao: (SessionKey, SessionRev, cb) => {
+      const path = sessoesdb + SessionKey + '?rev=' + SessionRev
       const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
       http(path, options, (err, res, body) => {
           if (err) return cb(err)

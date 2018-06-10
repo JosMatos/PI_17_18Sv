@@ -16,19 +16,39 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
     repoSessao.getallSessions((err, sessions)=> {
     cinemasRepository.getallCinemas((err, cinemas)=> {
       filmeRepository.getallsessionmovies((err, movies) => {
+       const orderbycinema=[]
+        cinemas.forEach(cinema=>{
+         orderbycinema.push( new model.CinemasessionView(cinema.name, sessions.filter(c=>c.cinemaid==cinema.id)))
+
+        })
+
         res.format({
           html: () => res.render('sessao.hbs', {
             menuState: {
               sessoes: "active",
               action: "Create",
               signInRoutes,
-              user: req.user
-            }
+              user: req.user },
+              sessions: orderbycinema
+
+            })
           })
         })
       })
     })
-    })})
+  })
+
+
+
+  router.post('/',(req, res)=>{
+    console.log(`Servicing ${req.method} ${req.originalUrl}`)
+
+  })
+
+
+
+
+
   router.get('/Create', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
       cinemasRepository.getallCinemas((err, cinemas)=> {
@@ -50,13 +70,9 @@ router.post('/create', (req,res)=>{
   console.log(`Servicing ${req.method} ${req.originalUrl}`)
   const info=req.body
   const moviedata =JSON.parse(info.filmedata)
-const timespan=[
- time=info.startime,
-  day=info.day,
-  month=info.month,
-  year=info.year
-]
-  const sessao = new model.Session(moviedata.movieid,moviedata.originalTitle,moviedata.img,info.cinemaid,info.idsala,timespan)
+const date=info.day+'-' +info.month+'-'+info.year
+
+  const sessao = new model.Session(moviedata.movieid,moviedata.originalTitle,moviedata.img,info.cinemaid,info.idsala,date,info.startime)
     repoSessao.insertSession( sessao ,(data,err)=>{
   if (err) throw err
   res.redirect(303, `/OTRA/sessoes`)

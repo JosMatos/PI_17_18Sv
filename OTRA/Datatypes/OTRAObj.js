@@ -5,7 +5,7 @@ module.exports={
   MovieDetailDto,
   CreditsDto,
   Sala,
-  Session
+  Session, CinemasessionView
 
 }
 
@@ -60,15 +60,15 @@ function MovieSearchItemDto(obj) {
   }
 
 }
-function Session (movieid,movietitle,movieimage ,cinemaid,idsala,timespan) {
+function Session (movieid,movietitle,movieimage ,cinemaid,idsala,date,time) {
   this.id=movieid+cinemaid+idsala
 this.movietitle=movietitle
   this.movieimage=movieimage
   this.movieId=movieid
-  this.cinemaname=cinemaid
+  this.cinemaid=cinemaid
     this.id_sala=idsala
-  this.date=timespan[1]+'-' +timespan[2]+'-'+timespan[3]
-  this.starttime=timespan[0]
+  this.date=date
+  this.starttime=time
 
 
 
@@ -83,9 +83,7 @@ function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
   this.isocupied=isocupied
 }
 
-function  sessiontimespane(obj) {
 
-}
 function MovieSearchDto(obj) {
   this.results = []
   this.currPage = obj.page
@@ -100,6 +98,13 @@ function MovieSearchDto(obj) {
   }
 
 
+}
+
+function CinemasessionView (cinemaname,sessions) {
+  this.cinemaname=cinemaname,
+    this.cinemasessions=[]
+  sessions.forEach(element=>
+  this.cinemasessions.push(new Session(element.movieId,element.movietitle,element.movieimage,element.cinemaid,element.id_sala,element.timespan)))
 }
 
 function MovieDetailDto(obj) {
