@@ -3,25 +3,22 @@
         <div class="item"  href="/OTRA"><img class="ui mini image" src="/OTRA/images/cinema_ticket_icon_01__icon.png"></div>
         <a class="item {{#if home}} active {{/if}}" href="/OTRA"><i class="plus icon"></i> Home</a>
         <a class="item {{#if cinema}} active {{/if}}" href="/OTRA/Cinemas"><img src="/OTRA/images/576386-200.png"></i>&nbsp;Cinemas</a>
-       <!-- <a class="item {{#if salas}} active {{/if}}" href="/OTRA/Salas"><img src="/OTRA/images/1454679-200.png"></i>Salas</a>-->
+        <!-- <a class="item {{#if salas}} active {{/if}}" href="/OTRA/Salas"><img src="/OTRA/images/1454679-200.png"></i>Salas</a>-->
         <a class="item {{#if filmes}} active {{/if}}" href="/OTRA/Filmes"><img src="/OTRA/images/466321-200.png"></i>&nbsp;Filmes</a>
-        <a class="item {{#if sessoes}} active {{/if}}" href="/OTRA/sessoes"><img src="/OTRA/images/128002-200.png"></i>&nbsp;&nbsp;Sessoes</a>
-    {{#if user}}{{else}} <a class="item   {{#if reserva}}active {{/if}} " href="/OTRA/Reservas"><img src="/OTRA/images/467941-200.png"></i>&nbsp;Reservas</a>{{/if}}
+        <a class="item {{#if sessoes}} active {{/if}}" href="/OTRA/Sessoes"><img src="/OTRA/images/128002-200.png"></i>&nbsp;&nbsp;Sessoes</a>
+        {{#if user}}
+            <a class="item {{#if reserva}} active {{/if}}" href="/OTRA/Reservas"><img src="/OTRA/images/467941-200.png"></i>&nbsp;Reservas</a>
+        {{/if}}
 
-
-
-
-
-
-            <div class="right menu">
-                {{#if user}}
-                    <a class="ui item">
-                        Welcome &nbsp; {{user.username}}
-                    </a>
-                    <a class="ui item" href="/OTRA/logout">Log out</a>
-                {{else}}
-                    <a class="ui item" href="/OTRA/login">Log in</a>
-                {{/if}}
-            </div>
+        <div class="right menu">
+            {{#if user}}
+                <a class="ui item">
+                    Welcome &nbsp; {{user.username}}
+                </a>
+                <a class="ui item" href="/OTRA/Logout">Log out</a>
+            {{else}}
+                <a class="ui item {{#if login}} active {{/if}}" href="/OTRA/Login">Log in</a>
+            {{/if}}
+        </div>
     </div>
 </div>
