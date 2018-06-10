@@ -7,8 +7,7 @@
 {{> menu this.menuState }}
 <div class="ui segment">
     <h4 class="ui dividing header">Sessões Registadas</h4>
-
-   
+  
    {{#each sessoes}}
          <p>SESSOESSSSS</p>
 
@@ -16,11 +15,10 @@
       </div>
     </div>
 
-
     {{#if menuState.user}}
     <div class="ui container">
         <div class="ui right floated button" data-tooltip="Registar Sessão" data-position="left center">
-            <a href="/OTRA/sessoes/create"><i class="plus icon"></i> Criar </a>
+            <a href="/OTRA/sessoes/Create"><i class="plus icon"></i> Criar </a>
         </div>
     </div>
     {{/if}}
