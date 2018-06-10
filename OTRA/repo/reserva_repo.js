@@ -114,16 +114,7 @@ function createRepository() {
     getCinemaSalas: (cinemaId, cb) => {
       const cinemaSalas = Array.from(cinemas.keys()).map((cinemaId) => getSalas(cinemaId))
       cb(null, cinemaSalas)
-    },
-
-    /**
-     * Gets the Max Cinema ID present in Cinema Repo.
-     * @param   {readCallback} cb - Completion callback.
-     * @memberof CinemasRepo#
-     */
-    getMaxId: () => {
-      return cinemas.size
     }
-
+    
   }
 }

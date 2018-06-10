@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{> head}}
+</head>
+<body>
+{{> menu this.menuState }}
+<form class="ui form container" action="/OTRA/sessoes/create" method="POST">
+    <h4 class="ui dividing header">Reservar Bilhete</h4>
+    <div class="field">
+        <label>Cinema</label>
+        <select name="cinemaid">
+        {{#each cinemas}}
+            <option value="{{id}}">{{cidade_localizacao}} - {{name}} </option>
+        {{/each}}
+        </select>
+   </div>
+
+   <div class="field">
+        <label>Filmes em Cartaz</label>
+        <select name="filmedata">
+            {{#each movies_in_theater}}
+                <option value="{  &quot;movieid&quot; : &quot;{{id}}&quot; , &quot;originalTitle&quot; : &quot;{{originalTitle}}&quot;, &quot;img&quot; : &quot;{{img}}&quot; }">{{originalTitle}} </option>
+            {{/each}}
+        </select>
+   </div>
+
+    <div class="field">
+        <label>Sessao</label>
+        <select name="filmedata">
+            {{#each sessoes}}
+                <option value="{  &quot;movieid&quot; : &quot;{{id}}&quot; , &quot;originalTitle&quot; : &quot;{{originalTitle}}&quot;, &quot;img&quot; : &quot;{{img}}&quot; }">{{originalTitle}} </option>
+            {{/each}}
+        </select>
+    </div>
+    
+    <div class="field">
+        <label>Lugar</label>
+        <select name="filmedata">
+            {{#each lugar_livres}}
+                <option value="{  &quot;movieid&quot; : &quot;{{id}}&quot; , &quot;originalTitle&quot; : &quot;{{originalTitle}}&quot;, &quot;img&quot; : &quot;{{img}}&quot; }">{{originalTitle}} </option>
+            {{/each}}
+        </select>
+   </div>
+
+   <button class="ui button" type="submit"> <i class="plus icon"></i>Reservar</button>
+</form>
+</body>
+</html>

@@ -4,19 +4,30 @@ const model = require('../Datatypes/OTRAObj')
 const fs = require('fs')
 const db = require('../services/AppService')
 
-
-
-module.exports = function(repoReserva, express ,signInRoutes) {
+module.exports = function(cinemasRepository, sessaoRepository, filmeRepository, repoReserva, express ,signInRoutes) {
 
   const router = express.Router()
 
-
   router.get('/', (req, res) => {
-    console.log(`Servicing ${req.method} ${req.originalUrl}`)
-    res.format({
-      html: () => res.render('reservas.hbs',{ menuState: { reserva: "active", signInRoutes, user: req.user } })
-    })
-  })
+    console.log(`Servicing ${req.method} ${req.originalUrl}`)    
+    
+    cinemasRepository.getallCinemas((err, cinemas)=> {
+      filmeRepository.getallsessionmovies((err,movies)=>{
+        res.format({
+          html: () => res.render('ReservasCreate.hbs',{
+                            menuState: { reserva: "active", signInRoutes, user: req.user },
+                            cinemas: cinemas,
+                            movies_in_theater : movies,
+                            sessoes: sessions,
+                            lugar_livres: lugares
+                          })
+                    })
+                  })
+                })
+              })
+            
+            
 
-return router
-}
+
+              return router
+            }
