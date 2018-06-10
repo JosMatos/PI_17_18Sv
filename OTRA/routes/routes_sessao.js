@@ -42,13 +42,12 @@ router.post('/create', (req,res)=>{
   console.log(`Servicing ${req.method} ${req.originalUrl}`)
   const info=req.body
 const timespan=[
-  minute=info.minute,
-  hour=info.hour,
+ time=info.startime,
   day=info.day,
   month=info.month,
   year=info.year
 ]
-  const sessoe = new model.Sessao(info.moviename,info.id,info.cinemaname,1,timespan)
+  const sessao = new model.Session(info.filmeid,info.cinemaid,info.idsala,timespan)
     repoSessao.insertSession( sessao ,(data,err)=>{
   if (err) throw err
   res.redirect(303, `/OTRA/sessoes`)

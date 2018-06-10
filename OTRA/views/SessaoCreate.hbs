@@ -9,7 +9,7 @@
 {{> menu this.menuState }}
 <form action="/OTRA/sessoes/create" method="POST">
    <div>
-    <select name="cinema">
+    <select name="cinemaid">
         {{#each cinemas}}
 
             <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
@@ -18,10 +18,13 @@
     </select>
    </div>
 
-
+    <div>
+        Sala:
+        <input type="number" min="1" name="idsala"  required>
+    </div>
 
    <div>
-    <select name="filme">
+    <select name="filmeid">
     {{#each movies}}
 
             <option value="{{id}}">{{originalTitle}}</option>
@@ -89,12 +92,8 @@
 </div>
 
     <div>
-       hora :
-        <input type="number" name="hour" min="00" max="24" required>
-    </div>
-    <div>
-        minutos:
-        <input type="number" name="minute" min="00" max="60" required>
+       hora de inicio :
+       <input name="startime" id="time" type="time">
     </div>
 
 

@@ -7,7 +7,7 @@
  */
 
 module.exports.createRepository = createRepository
-
+const http = require('request')
 /**
  * Module dependencies.
  * @private
@@ -66,14 +66,14 @@ function createRepository() {
     registerEvent: (event, cb) => { addEvent(event); cb() },
 
 
-    insertSessao: (sessao, cb) => {
+    insertSession: (sessao, cb) => {
 
-      const path = cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
+      const path = sessoesdb+sessao.id.toUpperCase()
 
       const options = {
         method: "PUT",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify(cinema)
+        body: JSON.stringify(sessao)
       }
       http(path, options, (err, res, body) => {
         if(err) return cb(err)
@@ -82,7 +82,7 @@ function createRepository() {
 
     },
     removeSessao: (cinemaKey, cinemaRev, cb) => {
-      const path = cinemasdb + cinemaKey + '?rev=' + cinemaRev
+      const path = sessoesdb + cinemaKey + '?rev=' + cinemaRev
       const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
       http(path, options, (err, res, body) => {
           if (err) return cb(err)
@@ -94,7 +94,7 @@ function createRepository() {
 
 
     getallCinemas : (cb)=>{
-      let path = cinemasdb + '_all_docs'
+      let path = sessoesdb + '_all_docs'
       http.get(path, (err, res,allcinemas) => {
         if (err) return cb(err)
         let cinemasfull=[]
