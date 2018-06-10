@@ -83,8 +83,9 @@ function createRepository() {
     },
     removeSessao: (SessionKey, SessionRev, cb) => {
       const path = sessoesdb + SessionKey + '?rev=' + SessionRev
+      const path2=path.split(' ').join('_')
       const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
-      http(path, options, (err, res, body) => {
+      http(path2, options, (err, res, body) => {
           if (err) return cb(err)
           cb(body, null)
         }

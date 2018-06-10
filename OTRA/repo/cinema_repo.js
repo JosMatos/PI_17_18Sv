@@ -121,14 +121,14 @@ function createRepository() {
          */
         updateCinema: (cinema, cb) => {
 
-          const path = cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
-
+          var path = cinemasdb+cinema.name.toUpperCase()+'_'+cinema.cidade_localizacao.toUpperCase()
+          const path2=path.split(' ').join('_')
           const options = {
             method: "PUT",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(cinema)
           }
-          http(path, options, (err, res, body) => {
+          http(path2, options, (err, res, body) => {
             if(err) return cb(err)
             cb(res,null)
           })
