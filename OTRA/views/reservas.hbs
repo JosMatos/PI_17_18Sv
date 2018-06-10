@@ -5,5 +5,52 @@
 </head>
 <body>
 {{> menu this.menuState }}
+<div class="ui segment">
+    <h4 class="ui dividing header">Criar Reserva</h4>
+  
+    <div class="field">
+        <label>Cinema</label>
+        <select name="cinemaid">
+            {{#each cinemas}}
+                <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
+            {{/each}}
+        </select>
+   </div>
+
+
+    <div class="field">
+        <label>Sessao Disponiveis</label>
+        <select name="sessaoid">
+            {{#each sessao}}
+                <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
+            {{/each}}
+        </select>
+   </div>
+
+    <div class="field">
+        <label>Lugares Disponiveis</label>
+        <select name="sessaoid">
+            {{#each lugares}}
+                <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
+            {{/each}}
+        </select>
+   </div>
+
+   
+
+</div>
+
+    {{#if menuState.user}}
+    <div class="ui container">
+        <div class="ui right floated button" data-tooltip="Reservar bilhete" data-position="left center">
+            <a href="/OTRA/Reservas/Create"><i class="plus icon"></i> Reservar </a>
+        </div>
+    </div>
+    {{/if}}
+
+
+
+
+</div>
 </body>
 </html>

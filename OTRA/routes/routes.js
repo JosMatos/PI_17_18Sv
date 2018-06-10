@@ -104,11 +104,12 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
     app.use(passport.initialize())
     app.use(passport.session())
 
-    app.use('/OTRA/Reservas',reservaRoutes(repoReserva,express,signInRoutes))
-    app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express,signInRoutes))
-    app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express,signInRoutes))
+    app.use('/OTRA/cinemas', cinemasRoutes(repoCinema, express, signInRoutes))
+    app.use('/OTRA/filmes', filmesRoutes(repoFilmes, express, signInRoutes))
     app.use('/OTRA',userSessionRoutes)
-    app.use('/OTRA/sessoes',sessionRoutes(repoSessao,repoCinema,repoFilmes,express,signInRoutes))
+    app.use('/OTRA/sessoes', sessionRoutes(repoSessao,repoCinema,repoFilmes, express,signInRoutes))
+    app.use('/OTRA/reservas', reservaRoutes(repoCinema, repoSessao, repoFilmes, repoReserva, express, signInRoutes))
+
     //app.use('/OTRA/salas', salasRoutes(repoCinema, express))
     //app.use('/OTRA/sessoes', sessoesRoutes(repoCinema, express))
     
