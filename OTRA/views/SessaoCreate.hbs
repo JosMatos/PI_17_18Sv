@@ -5,25 +5,22 @@
 </head>
 <body>
 {{> menu this.menuState }}
-
-
-<form action="/OTRA/sessoes" method="post">
+   
+    <form action="/OTRA/sessoes" method="post">
+    <div class="ui segment">
+     <h4 class="ui dividing header">Criar Sessão</h4>
+    
     <select name="cinema">
         {{#each cinemas}}
-
-            <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
-
+           <option value="{{id}}">{{cidade_localizacao}} - {{name}}</option>
         {{/each}}
     </select>
+    
     <select name="filme">
     {{#each movies}}
-
             <option value="{{id}}">{{originalTitle}}</option>
-
     {{/each}}
     </select>
-
-
 
     <select name="day">
         <option value ="1">1</option>
@@ -80,5 +77,20 @@
         <option value ="2019">2019</option>
         <option value ="2020">2020</option>
     </select>
-    <button class="ui button" type="submit"> <i class="plus icon"></i> Gravar</button>
-</form>
+    
+    </div>
+    
+    <div class="ui container">
+      <div class="ui right floated button" data-position="left center">
+         <button class="ui button" type="submit"> <i class="plus icon"></i> Gravar</button>
+      </div>
+    </div>
+
+    </form>
+
+
+    
+
+    </div>
+  </body>
+</html>
