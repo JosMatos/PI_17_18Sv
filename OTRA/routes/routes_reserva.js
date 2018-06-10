@@ -18,8 +18,8 @@ module.exports = function(cinemasRepository, sessaoRepository, filmeRepository, 
                             menuState: { reserva: "active", signInRoutes, user: req.user },
                             cinemas: cinemas,
                             movies_in_theater : movies,
-                            sessoes: sessions,
-                            lugar_livres: lugares
+                            /*sessoes: sessions,
+                            lugar_livres: lugares*/
                           })
                     })
                   })

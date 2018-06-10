@@ -142,7 +142,8 @@ function createRepository() {
          * @memberof CinemasRepo# 
          */
          removeCinema: (cinemaKey, cinemaRev, cb) => {
-            const path = cinemasdb + cinemaKey + '?rev=' + cinemaRev
+            const path = cinemasdb + cinemaKey.toUpperCase() + '?rev=' + cinemaRev
+
             const options = { method: "DELETE", headers: {"Content-Type": "application/json"} }
             http(path, options, (err, res, body) => {
                                                       if (err) return cb(err)

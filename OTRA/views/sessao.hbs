@@ -42,9 +42,7 @@
                 <div class="four wide column">
                     <form method="POST" action=/OTRA/Sessoes/remove>
                         <div class="ui right button">
-                            <!--<input type="hidden" value = "{{name}}" id="name" name="name">
-                            <input type="hidden" value ="{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"> -->
-                            <input type="hidden" name="rem_id_sessao" value={{_id}}>
+                            <input type="hidden" name="rem_id_sessao" value={{id}}>
                             <input type="hidden" name="rem_rev_sessao" value={{rev}}>
                             <button class="ui button" type="submit" method="POST" action="/OTRA/Sessoes/remove"> <i class="minus icon"></i>Remover</button>
                         </div>
@@ -61,11 +59,11 @@
 </div>
 
     {{#if menuState.user}}
-    <
+        {{#if this.sessions.cinemaname}}
         <div class="ui right  button" data-tooltip="Registar Sessão" data-position="left center">
             <a href="/OTRA/sessoes/Create"><i class="plus icon"></i> Criar </a>
         </div>
-
+        {{/if}}
     {{/if}}
 </div>
 </body>

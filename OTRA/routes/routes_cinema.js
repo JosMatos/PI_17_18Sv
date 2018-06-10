@@ -59,9 +59,10 @@ module.exports = function(cinemasRepository, express,signInRoutes) {
             if (!info || !info.name || !info.cidade_localizacao || !info.nrsalas)
                 return res.sendStatus(400)
 
-            if (!info.id)
-                info.id = info.name+'_'+info.cidade_localizacao ;
-
+            if (!info.id) {
+              info.id = info.name + '_' + info.cidade_localizacao;
+              info.id = info.id.split(' ').join('_')
+            }
             const new_cinema = new model.Cinema( info.id , info.name, info.cidade_localizacao,info.nrsalas)
         
             cinemasRepository.updateCinema(new_cinema, (msg,err) => {
