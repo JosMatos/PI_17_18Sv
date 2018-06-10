@@ -60,11 +60,12 @@ function MovieSearchItemDto(obj) {
   }
 
 }
-function Session (movieid,cinemaid,idsala,timespan) {
+function Session (movieid,movietitle,movieimage ,cinemaid,idsala,timespan) {
   this.id=movieid+cinemaid+idsala
-
+this.movietitle=movietitle
+  this.movieimage=movieimage
   this.movieId=movieid
-  this.cinemaname=cinemaid,
+  this.cinemaname=cinemaid
     this.id_sala=idsala
   this.date=timespan[1]+'-' +timespan[2]+'-'+timespan[3]
   this.starttime=timespan[0]

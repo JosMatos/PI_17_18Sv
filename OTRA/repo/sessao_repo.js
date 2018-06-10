@@ -106,7 +106,7 @@ function createRepository() {
         allcinemas.rows.forEach(obj=>
         {
           let id = obj.id
-          getCinema(id,(cinema,err)=>{
+          getSession(id,(cinema,err)=>{
             if (err) return cb(err)
             if (cinema)
               cinemasfull.push(cinema)

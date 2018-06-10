@@ -28,7 +28,7 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
         })
       })
     })
-    })
+    })})
   router.get('/Create', (req, res) => {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
       cinemasRepository.getallCinemas((err, cinemas)=> {
@@ -49,13 +49,14 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
 router.post('/create', (req,res)=>{
   console.log(`Servicing ${req.method} ${req.originalUrl}`)
   const info=req.body
+  const moviedata =JSON.parse(info.filmedata)
 const timespan=[
  time=info.startime,
   day=info.day,
   month=info.month,
   year=info.year
 ]
-  const sessao = new model.Session(info.filmeid,info.cinemaid,info.idsala,timespan)
+  const sessao = new model.Session(moviedata.movieid,moviedata.originalTitle,moviedata.img,info.cinemaid,info.idsala,timespan)
     repoSessao.insertSession( sessao ,(data,err)=>{
   if (err) throw err
   res.redirect(303, `/OTRA/sessoes`)

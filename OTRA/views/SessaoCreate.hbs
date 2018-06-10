@@ -7,8 +7,10 @@
 </head>
 <body>
 {{> menu this.menuState }}
-<form action="/OTRA/sessoes/create" method="POST">
-   <div>
+<form class="ui form container" action="/OTRA/sessoes/create" method="POST">
+    <h4 class="ui dividing header">Informação da Sessão</h4>
+    <div class="field">
+        <label>Cinema</label>
     <select name="cinemaid">
         {{#each cinemas}}
 
@@ -18,22 +20,24 @@
     </select>
    </div>
 
-    <div>
+    <div class="field">
+        <label>Sala</label>
         Sala:
         <input type="number" min="1" name="idsala"  required>
     </div>
 
-   <div>
-    <select name="filmeid">
+    <div class="field">
+        <label>Filme</label>
+    <select name="filmedata">
     {{#each movies}}
 
-            <option value="{{id}}">{{originalTitle}}</option>
-
+        <option value="{  &quot;movieid&quot; : &quot;{{id}}&quot; , &quot;originalTitle&quot; : &quot;{{originalTitle}}&quot;, &quot;img&quot; : &quot;{{img}}&quot; }">{{originalTitle}}        </option>
     {{/each}}
     </select>
    </div>
 
-<div>
+<div class="field">
+    <label>Data</label>
     <select name="day">
         <option value ="1">1</option>
         <option value ="2">2</option>
@@ -91,8 +95,8 @@
     </select>
 </div>
 
-    <div>
-       hora de inicio :
+    <div class="field">
+        <label>Hora de inicio</label>
        <input name="startime" id="time" type="time">
     </div>
 
