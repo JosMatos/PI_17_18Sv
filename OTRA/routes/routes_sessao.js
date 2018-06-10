@@ -18,7 +18,7 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
       filmeRepository.getallsessionmovies((err, movies) => {
        const orderbycinema=[]
         cinemas.forEach(cinema=>{
-         orderbycinema.push( new model.CinemasessionView(cinema.name, sessions.filter(c=>c.cinemaid==cinema.id)))
+         orderbycinema.push( new model.CinemasessionView(cinema.name+'-'+cinema.cidade_localizacao, sessions.filter(c=>c.cinemaid==cinema.id)))
 
         })
 
@@ -40,10 +40,16 @@ module.exports = function(repoSessao,cinemasRepository,filmeRepository, express 
 
 
 
-  router.post('/',(req, res)=>{
+  router.post('/remove',(req, res)=> {
     console.log(`Servicing ${req.method} ${req.originalUrl}`)
+    const info = req.body
+    repoSessao.removeSessao(info.rem_id_sessao, info.rem_rev_sessao, (msg, err) => {
+      if (err) throw err
+      res.redirect(303, `/OTRA/Sessoes`)
 
-  })
+    })
+  }
+  )
 
 
 

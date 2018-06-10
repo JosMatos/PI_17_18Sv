@@ -3,29 +3,69 @@
 <head>
     {{> head}}
 </head>
+
+
 <body>
 {{> menu this.menuState }}
-<div class="ui segment">
-    <h4 class="ui dividing header">Sessões Registadas</h4>
-
-    {{#each this.sessions.CinemasessionView}}
+<h4 class="ui dividing header">Sessões Registadas</h4>
+{{#if menuState.user}}
 
 
+        <div class="ui right button" data-tooltip="Registar Sessão" data-position="left center" >
+            <a href="/OTRA/sessoes/Create"><i class="plus icon"></i> Criar </a>
+        </div>
+
+{{/if}}
+
+{{#each this.sessions}}
+    <div class="ui segment">
+       <!-- <form class="ui form container">-->
 
 
-         <li>  cona</li>
 
-    {{/each}}
 
-    <li>  cona</li>
+    <h1 class="ui header" align="center">{{cinemaname}}</h1>
+            <div class="ui middle aligned animated selection list container">
+        {{#each cinemasessions}}
+
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui small image  left"> <a href = '/OTRA/filmes/movies/{{movieId}}'><img src="{{movieimage}}"></a></div>
+            </div>
+            <div class="eight wide column">
+                <a href="/OTRA/filmes/movies/{{movieId}}">{{movietitle}}</a>
+                <div class="description">Data : {{date}}</div>
+                <div class="description">Inicio  : {{starttime}} H </div>
+                <div class="description">Sala  : {{id_sala}} </div>
+            </div>
+            {{#if ../../menuState.user}}
+                <div class="four wide column">
+                    <form method="POST" action=/OTRA/Sessoes/remove>
+                        <div class="ui right button">
+                            <!--<input type="hidden" value = "{{name}}" id="name" name="name">
+                            <input type="hidden" value ="{{cidade_localizacao}}" id="cidade_localizacao" name="cidade_localizacao"> -->
+                            <input type="hidden" name="rem_id_sessao" value={{_id}}>
+                            <input type="hidden" name="rem_rev_sessao" value={{rev}}>
+                            <button class="ui button" type="submit" method="POST" action="/OTRA/Sessoes/remove"> <i class="minus icon"></i>Remover</button>
+                        </div>
+                    </form>
+                </div>
+            {{/if}}
+
+        </div>
+        {{/each}}   </div>
+  <!--  </form>-->
+</div>
+{{/each}}
+
 </div>
 
     {{#if menuState.user}}
-    <div class="ui container">
-        <div class="ui right floated button" data-tooltip="Registar Sessão" data-position="left center">
+    <
+        <div class="ui right  button" data-tooltip="Registar Sessão" data-position="left center">
             <a href="/OTRA/sessoes/Create"><i class="plus icon"></i> Criar </a>
         </div>
-    </div>
+
     {{/if}}
 </div>
 </body>

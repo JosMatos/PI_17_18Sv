@@ -41,7 +41,6 @@ module.exports = exports = function(repoCinema, repoFilmes,repoSessao,repoReserv
     const hbs = require('hbs')
     const methodOverride = require('method-override')
 
-
   hbs.registerHelper('ifBtnF',(obj,option)=>{
     var nextbutton
     if(obj.data.currPage < obj.data.numPages)

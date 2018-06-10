@@ -32,8 +32,10 @@ module.exports.Sessao = Sessao
  */
 function Cinema(id, name, cidade_localizacao, nrsalas,salas) {
     if (!(this instanceof Cinema)) return { id, name, cidade_localizacao ,nrsalas}
-    this.id = id
-    this.name = name
+
+    this.id = id.split(' ').join('_');
+
+  this.name = name
     this.cidade_localizacao = cidade_localizacao
   if (salas==undefined){
     this.salas =[]
@@ -62,6 +64,7 @@ function MovieSearchItemDto(obj) {
 }
 function Session (movieid,movietitle,movieimage ,cinemaid,idsala,date,time) {
   this.id=movieid+cinemaid+idsala
+  this.id=this.id.split(' ').join('_');
 this.movietitle=movietitle
   this.movieimage=movieimage
   this.movieId=movieid
@@ -69,9 +72,7 @@ this.movietitle=movietitle
     this.id_sala=idsala
   this.date=date
   this.starttime=time
-
-
-
+  this.rev
 }
 
 function Sala(id_sala, nome_sala, nr_filas, nr_lugar_fila,isocupied) {
@@ -103,9 +104,11 @@ function MovieSearchDto(obj) {
 function CinemasessionView (cinemaname,sessions) {
   this.cinemaname=cinemaname,
     this.cinemasessions=[]
-  sessions.forEach(element=>
-  this.cinemasessions.push(new Session(element.movieId,element.movietitle,element.movieimage,element.cinemaid,element.id_sala,element.timespan)))
-}
+  sessions.forEach(element=>{
+    var x=new Session(element.movieId,element.movietitle,element.movieimage,element.cinemaid,element.id_sala,element.date,element.starttime)
+    x.rev=element._rev
+  this.cinemasessions.push(x)
+  })}
 
 function MovieDetailDto(obj) {
   this.tagline = obj.tagline
